@@ -14,7 +14,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public Usuario comprobarUsuario(String login, String password, Conexion c) {
 		Usuario u = null;
 		
-		String query = "Select * from usuarios where login = ?";
+		String query = "Select * from usuarios where login = ? and password = ?";
 		try {
 			PreparedStatement sentencia = c.getConector().prepareStatement(query);
 			sentencia.setString(1, login);
