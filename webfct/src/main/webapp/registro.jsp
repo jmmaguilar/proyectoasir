@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="icon" href="imagenes/icono.png">
 
-<title>Inicio</title>
+<title>Registro</title>
 <head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/frytyler/pen/EGdtg" />
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
@@ -47,7 +47,7 @@ body {
 }
 .login { 
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
 	width:300px;
@@ -103,22 +103,89 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <br />
 	<% } %>
 </div>
-	
+<!--  
+<div class="container white" style="background-color: white;vertical-align: middle;border-radius: 5px;margin-top:12%;margin-bottom:15%;padding: 50px 20px 50px 10px;">
+		<div class="row justify-content"  style="margin: 10px 10px 10px 10px;">
+			
+			 <img src="../imagenes/icono.png" style="margin: 5em 0 0 15%;" width="250em" height="300em">
+			 
+			<form role="form" method="POST" action="../RegistrarUsuario" style="margin: 0 0 0 15%;" onsubmit="return validarFormRegistro()">
+			<h1>Registro</h1> <hr/>
+				<label>Login</label>
+			<div>
+ 		 		<div class="input-group mb-2 mr-sm-2">
+  	  				<div class="input-group-prepend">
+   	   				<div class="input-group-text"><i class="fas fa-user"></i></div>
+   	 			</div>
+  	 			<input type="text" class="form-control" id="login" name="login" autofocus required="required">
+ 	 		</div>
+ 	 		<span id="splogin" style="color: red"></span>
+				<div class="form-group">
+					<label>Contraseña</label>
+					<div class="input-group mb-2 mr-sm-2">
+  	  					<div class="input-group-prepend">
+   	   					<div class="input-group-text"><i class="fas fa-key"></i></div>
+   	 				</div>
+					 <input type="password" class="form-control" id="password" name="password" required="required">
+				</div>
+				</div>
+				<span id="sppass" style="color: red"></span>
+				<div class="form-group">
+					<label>Nombre</label>
+					<div class="input-group mb-2 mr-sm-2">
+  	  					<div class="input-group-prepend">
+   	   					<div class="input-group-text"><i class="fas fa-file-signature"></i></div>
+   	 				</div>
+					 <input type="text" class="form-control" id="nombre" name="nombre" required="required">
+				</div>
+				</div>
+				<span id="spnombre" style="color: red"></span>
+				<div class="form-group">
+					<label for="password">Email</label>
+					<div class="input-group mb-2 mr-sm-2">
+  	  					<div class="input-group-prepend">
+   	   					<div class="input-group-text"><i class="fas fa-at"></i></div>
+   	 				</div>
+					 <input type="email" class="form-control" id="email" name="email" required="required">
+				</div>
+				</div>
+				<div>
+				<span id="spemail" style="color: red"></span>
+				</div>
+				<div>
+				<button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Enviar</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='../index.jsp'"><i class="fas fa-arrow-left"></i> Volver</button>
+				</div>
+			</form>
+			
+</div>
+	-->
+
 <div class="login">
-	<h1>Iniciar Sesión</h1>
-    <form form role="form" method="POST" action="ValidarUsuario">
-    <div>
-    	<input type="text" id="usuario" name="usuario" placeholder="Usuario" autofocus required="required" />
-        <input type="password" id="password" name="password" placeholder="Contraseña" required="required" />
-    </div>
-    <div>
-		<button type="submit" class="btn btn-primary btn-large" style="width:10.5em;"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
-  	 	<button type="submit" class="btn btn-secondary btn-large" onclick="location.href='registro.jsp'"><i class="fas fa-user-plus"></i> Registrarse</button>
-    </div>
+	<h1>Registro</h1>
+    <form role="form" method="POST" action="ValidarUsuario">
+<div>
+	<input type="text" class="" id="login" name="login" placeholder="Usuario" autofocus required="required">
+		<span id="splogin" style="color: red"></span>
+	<input type="password" class="" id="password" name="password" placeholder="Contraseña" required="required">
+		<span id="sppass" style="color: red"></span>
+	<input type="text" class="" id="nombre" name="nombre" placeholder="Nombre" required="required">
+		<span id="nombre" style="color: red"></span>
+	<input type="text" class="" id="apellidos" name="apellidos" placeholder="Apellidos" required="required">
+		<span id="spapellidos" style="color: red"></span>
+	<input type="email" class="" id="email" name="email" placeholder="Email" required="required">
+		<span id="spemail" style="color: red"></span>
+		
+	<div>
+			<button type="submit" class="btn btn-primary btn-large" style="width:13.47em;"><i class="fas fa-check"></i> Enviar</button>
+  	 		<button type="submit" class="btn btn-secondary btn-large" onclick="location.href='index.jsp'"><i class="fas fa-arrow-left"></i> Volver</button>
+   		</div>
+   		</div>
     </form>
 </div>
 
 <script src="js/jquery-3.3.1.slim.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-</body></html>
+</body>
+</html>

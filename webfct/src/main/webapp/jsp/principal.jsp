@@ -1,3 +1,4 @@
+<%@page import="es.cj.bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
@@ -16,6 +17,20 @@
 <title>Series</title>
 </head>
 <body>
+
+<%
+		if (session.getAttribute("usuarioWeb") == null || session.isNew()) {
+			response.sendRedirect("../index.jsp?mensaje=Error de sesión");
+		} else {
+			ServletContext sc = getServletContext();
+			String usu = sc.getInitParameter("usuario");
+			String pass = sc.getInitParameter("password");
+			String driver = sc.getInitParameter("driver");
+			String bd = sc.getInitParameter("database");
+			Usuario usuario = (Usuario)session.getAttribute("usuarioWeb");
+					
+			
+	%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
@@ -41,10 +56,16 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="../CerrarSesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </li>
     </ul>
   </div>
 </nav>
 
+<%
+			}
+		%>
 
 <!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
