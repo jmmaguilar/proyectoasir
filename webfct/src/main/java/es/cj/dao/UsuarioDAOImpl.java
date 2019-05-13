@@ -9,17 +9,17 @@ import es.cj.bean.Usuario;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 	
-	private String passBD = "Series1234";
+	private String passBD = "P4sS_4_d4t4B4s3-!";
 
 	public Usuario comprobarUsuario(String login, String password, Conexion c) {
 		Usuario u = null;
 		
-		String query = "Select * from usuarios where login = ? and password = ?";
+		String query = "Select * from usuarios where login = ? and password = AES_ENCRYPT(?, ?)";
 		try {
 			PreparedStatement sentencia = c.getConector().prepareStatement(query);
 			sentencia.setString(1, login);
 			sentencia.setString(2, password);
-			//sentencia.setString(3, passBD);
+			sentencia.setString(3, passBD);
 			// Ejecutamos la consulta
 			ResultSet resultado = sentencia.executeQuery();
 			if (resultado.next()) {
@@ -81,15 +81,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public int insertar(Usuario usuario, Conexion con) {
 		int filas = 0;
 
-		String sql = "insert into usuarios values (null, ?, AES_ENCRYPT(?, ?), ?, ?, ?)";
+		String sql = "insert into usuarios values (null, ?, ?, ?, ?, AES_ENCRYPT(?, ?), ?)";
 		try {
 			PreparedStatement sentencia = con.getConector().prepareStatement(sql);
-			sentencia.setString(1, usuario.getLogin());
-			sentencia.setString(2, usuario.getPassword());
-			sentencia.setString(3, passBD);
-			sentencia.setString(4, usuario.getNombre());
-			sentencia.setString(5, usuario.getEmail());
-			sentencia.setInt(6, usuario.getTipo());
+			sentencia.setString(1, usuario.getNombre());
+			sentencia.setString(2, usuario.getApellidos());
+			sentencia.setString(3, usuario.getEmail());
+			sentencia.setInt(4, usuario.getTipo());
+			sentencia.setString(5, usuario.getPassword());
+			sentencia.setString(6, passBD);
+			sentencia.setString(7, usuario.getLogin());
 			filas = sentencia.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

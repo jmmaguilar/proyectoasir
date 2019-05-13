@@ -55,7 +55,7 @@ body {
 }
 .notice { 
 	position: absolute;
-	top: 40%;
+	top: 32%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
 	width:300px;
@@ -163,7 +163,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 
 <div class="login">
 	<h1>Registro</h1>
-    <form role="form" method="POST" action="ValidarUsuario">
+    <form role="form" method="POST" action="RegistrarUsuario" onsubmit="return validarFormRegistro()">
 <div>
 	<input type="text" class="" id="login" name="login" placeholder="Usuario" autofocus required="required">
 		<span id="splogin" style="color: red"></span>
