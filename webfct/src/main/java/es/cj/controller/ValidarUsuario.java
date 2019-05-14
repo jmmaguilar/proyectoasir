@@ -63,8 +63,18 @@ public class ValidarUsuario extends HttpServlet {
 						
 						//Pongo al usuario en la sesion
 						sesion.setAttribute("usuarioWeb", u);
-						
-						response.sendRedirect("jsp/principal.jsp");
+						if (u.getTipo() == 0) {
+							response.sendRedirect("jsp/principalDirectivo.jsp");
+
+						} else if (u.getTipo() == 1) {
+							response.sendRedirect("jsp/principalTutor.jsp");
+
+						} else if (u.getTipo() == 2) {
+							response.sendRedirect("jsp/principalAlumno.jsp");
+
+						} else {
+							response.sendRedirect("jsp/principal.jsp");	
+						}							
 		} else {
 			response.sendRedirect("index.jsp?mensaje=Usuario y/o Password Incorrecto");
 		}
