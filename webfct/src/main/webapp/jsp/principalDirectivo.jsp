@@ -28,7 +28,10 @@
 			String driver = sc.getInitParameter("driver");
 			String bd = sc.getInitParameter("database");
 			Usuario usuario = (Usuario)session.getAttribute("usuarioWeb");
-					
+				
+			if (usuario.getTipo() != 0) {
+				response.sendRedirect("../index.jsp?mensaje=Solo accesible a dirección");
+			} else {
 			
 	%>
 
@@ -70,6 +73,7 @@
 
 
 <%
+			}
 			}
 		%>
 

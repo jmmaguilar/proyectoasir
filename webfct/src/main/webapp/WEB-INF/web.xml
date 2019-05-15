@@ -38,6 +38,24 @@
   	<description></description>
   	<servlet-class>es.cj.controller.CerrarSesion</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AnadirDia</servlet-name>
+  	<display-name>AnadirDia</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.AnadirDia</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EditarFicha</servlet-name>
+  	<display-name>EditarFicha</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.EditarFicha</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BorrarFicha</servlet-name>
+  	<display-name>BorrarFicha</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.BorrarFicha</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -49,6 +67,18 @@
   <servlet-mapping>
   	<servlet-name>CerrarSesion</servlet-name>
   	<url-pattern>/CerrarSesion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AnadirDia</servlet-name>
+  	<url-pattern>/AnadirDia</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EditarFicha</servlet-name>
+  	<url-pattern>/EditarFicha</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BorrarFicha</servlet-name>
+  	<url-pattern>/BorrarFicha</url-pattern>
   </servlet-mapping>
 
   

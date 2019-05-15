@@ -1,3 +1,8 @@
+<%@page import="java.util.List"%>
+<%@page import="es.cj.dao.FichasDAOImpl"%>
+<%@page import="es.cj.dao.FichasDAO"%>
+<%@page import="es.cj.bean.Fichas"%>
+<%@page import="es.cj.bean.Conexion"%>
 <%@page import="es.cj.bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -18,6 +23,8 @@
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
+  border-radius: 0.5em;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -33,9 +40,13 @@
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
+  text-align: center;
+  background-color: #343a40;
   color: white;
+}
+
+#customers td {
+  text-align: center;
 }
 </style>
 
@@ -53,7 +64,14 @@
 			String driver = sc.getInitParameter("driver");
 			String bd = sc.getInitParameter("database");
 			Usuario usuario = (Usuario)session.getAttribute("usuarioWeb");
-					
+			
+			if (usuario.getTipo() != 2) {
+				response.sendRedirect("../index.jsp?mensaje=Solo accesible al alumnado");
+			} else {
+			Conexion con = new Conexion(usu, pass, driver, bd);
+			
+			FichasDAO fDAO = new FichasDAOImpl();
+			List<Fichas> fichas = fDAO.listar(con, (Usuario)session.getAttribute("usuarioWeb"));
 			
 	%>
 
@@ -88,31 +106,229 @@
   </div>
 </nav>
 
-
+<div class="container" style="margin-top: 2em;">
+<%
+				String error = request.getParameter("mensaje");
+					if (error != null) {
+			%>
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" style="text-align: center;">
+				<%
+					out.print(error);
+				%>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<br />
+			<%
+				}
+			%>
 <table id="customers">
   <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
+    <th>Fecha</th>
+    <th>Descripción</th>
+    <th>Horas</th>
+    <th>Observaciones</th>
+    <th>Editar / Borrar</th>
   </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-  </tr>
+<%
+	for(Fichas f:fichas) {
+		%>
+		  <tr>
+		    <td><%=f.getFecha() %></td>
+		    <td><%=f.getDescripcion() %></td>
+		    <td><%=f.getHoras() %></td>
+		    <td>
+		    <%
+		    	if(f.getObservaciones() == null) {
+		    		out.print(" ");
+		    	} else {
+		    		out.print(f.getObservaciones());
+		    	}	
+		    %>
+		    <td><button type="button" data-toggle="modal" data-target="#modalEditar<%=f.getFecha() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;">  <i class="far fa-edit"></i></button>
+		    <button type="button" data-toggle="modal" data-target="#modalBorrar<%=f.getFecha() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"><i class="fas fa-trash"></i></button>
+		    </td>
+		  </tr>
+		  
+		  <!-- Modal -->
+		  <div class="modal fade" id="modalBorrar<%=f.getFecha() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que desea borrar este día <%=f.getFecha() %>?</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../BorrarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+													<input type="hidden" id="idAlumno" name="idAlumno" value="<%=f.getIdAlumno() %>" class="form-control">
+													<input type="hidden" id="fecha" name="fecha" value="<%=f.getFecha() %>" class="form-control">						
+								<button type="submit" class="btn btn-success">Sí</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+		  
+<div class="modal fade" id="modalEditar<%=f.getFecha() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Modificar Día <%=f.getFecha() %></h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../EditarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<div class="form-group">
+										<label>Descripción</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-align-left"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control" id="descripcion" name="descripcion" value="<%=f.getDescripcion() %>" required="required">
+										</div>
+										</div>
+										<span id="spdescripcion" style="color: red"></span>
+										<div class="form-group">
+											<label >Horas</label>
+											<div class="input-group mb-2 mr-sm-2">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<i class="far fa-hourglass"></i>
+													</div>
+												</div>
+												<input type="time" class="form-control" id="horas" name="horas" value="<%=f.getHoras() %>" required="required">
+											</div>
+											</div>
+											<span id="sphoras" style="color: red"></span>
+											<div class="form-group">
+												<label>Observaciones</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" value="<%if(f.getObservaciones() == null){out.print(" ");} else {out.print(f.getObservaciones());}%>" class="form-control">
+												</div>
+												</div>
+												<div>
+													<span id="spobservaciones" style="color: red"></span>
+												</div>	
+													<input type="hidden" id="idAlumno" name="idAlumno" value="<%=f.getIdAlumno() %>" class="form-control">
+													<input type="hidden" id="fecha" name="fecha" value="<%=f.getFecha() %>" class="form-control">
+																
+								<button type="submit" class="btn btn-success">Enviar</button>
+							
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+		  
+	  <%
+	}
+%>
 </table>
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="margin-top: 1em; width: 100%;"><b>Añadir nuevo día</b></button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAnadir" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Añadir Nuevo Día</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../AnadirDia" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<label>Fecha</label>
+									<div class="input-group mb-2 mr-sm-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="far fa-calendar-alt"></i>
+											</div>
+										</div>
+										<input type="text" class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" autofocus required 
+										pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" 
+										title="Enter a date in this format YYYY-MM-DD"/>
+									</div>
+									<span id="spfecha" style="color: red"></span>
+									<div class="form-group">
+										<label>Descripción</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-align-left"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control" id="descripcion" name="descripcion" required="required">
+										</div>
+										</div>
+										<span id="spdescripcion" style="color: red"></span>
+										<div class="form-group">
+											<label >Horas</label>
+											<div class="input-group mb-2 mr-sm-2">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<i class="far fa-hourglass"></i>
+													</div>
+												</div>
+												<input type="time" class="form-control" id="horas" name="horas" required="required">
+											</div>
+											</div>
+											<span id="sphoras" style="color: red"></span>
+											<div class="form-group">
+												<label>Observaciones</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" class="form-control">
+												</div>
+												</div>
+												<div>
+													<span id="spobservaciones" style="color: red"></span>
+												</div>
+												<input type="hidden" id="idAlumno" name="idAlumno" value="<%=usuario.getIdUsuario()%>" class="form-control">
+																	
+								<button type="submit" class="btn btn-success">Enviar</button>
+							
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+
 
 
 
 <%
 			}
+			}
 		%>
-
+</div>
 <!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="../js/jquery-3.3.1.slim.min.js"></script>

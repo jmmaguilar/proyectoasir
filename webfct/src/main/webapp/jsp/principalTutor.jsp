@@ -29,6 +29,9 @@
 			String bd = sc.getInitParameter("database");
 			Usuario usuario = (Usuario)session.getAttribute("usuarioWeb");
 					
+			if (usuario.getTipo() != 1) {
+				response.sendRedirect("../index.jsp?mensaje=Solo accesible a tutores");
+			} else {
 			
 	%>
 
@@ -70,6 +73,7 @@
 
 
 <%
+			}
 			}
 		%>
 
