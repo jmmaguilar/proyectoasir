@@ -50,7 +50,7 @@
 }
 </style>
 
-<title>Series</title>
+<title>Inicio</title>
 </head>
 <body>
 
@@ -86,7 +86,7 @@
   <div class="collapse navbar-collapse order-3" id="navbarTogglerDemo02">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#"><strong>Home <span class="sr-only">(current)</span></strong></a>
+        <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><strong>Link</strong></a>
@@ -148,8 +148,8 @@
 		    		out.print(f.getObservaciones());
 		    	}	
 		    %>
-		    <td><button type="button" data-toggle="modal" data-target="#modalEditar<%=f.getFecha() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;">  <i class="far fa-edit"></i></button>
-		    <button type="button" data-toggle="modal" data-target="#modalBorrar<%=f.getFecha() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"><i class="fas fa-trash"></i></button>
+		    <td><button type="button" data-toggle="modal" data-target="#modalEditar<%=f.getFecha() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
+		    <button type="button" data-toggle="modal" data-target="#modalBorrar<%=f.getFecha() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
 		    </td>
 		  </tr>
 		  

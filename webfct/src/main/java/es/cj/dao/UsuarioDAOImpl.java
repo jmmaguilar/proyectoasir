@@ -3,6 +3,8 @@ package es.cj.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.cj.bean.Conexion;
 import es.cj.bean.Usuario;
@@ -99,6 +101,54 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		return filas;
 	}
+
+	public Usuario listarXId(Conexion c, int idUsuario) {
+		Usuario usuario = new Usuario();
+		
+		String sql = "select * from usuarios where idUsuario = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, idUsuario);
+			ResultSet resultado = sentencia.executeQuery();
+			if (resultado.next()) {
+				usuario = new Usuario(resultado.getString("login"), 
+						  resultado.getString("nombre"), 
+						  resultado.getString("apellidos"), 
+						  resultado.getString("password"), 
+						  resultado.getString("email"), 
+						  resultado.getInt("tipo"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return usuario;
+	}
+
+	public List<Usuario> listarXTipo(Conexion c, int tipo) {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		String sql = "select * from usuarios where tipo = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, tipo);
+			ResultSet resultado = sentencia.executeQuery();
+			while (resultado.next()) {
+				Usuario auxiliar = new Usuario(resultado.getString("login"), 
+						  resultado.getString("nombre"), 
+						  resultado.getString("apellidos"), 
+						  resultado.getString("password"), 
+						  resultado.getString("email"), 
+						  resultado.getInt("tipo"));
+				usuarios.add(auxiliar);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return usuarios;	}
 
 
 

@@ -1,3 +1,16 @@
+<%@page import="es.cj.dao.TutoresLaboralesDAOImpl"%>
+<%@page import="es.cj.dao.TutoresLaboralesDAO"%>
+<%@page import="es.cj.bean.TutoresLaborales"%>
+<%@page import="es.cj.bean.Empresa"%>
+<%@page import="es.cj.dao.UsuarioDAOImpl"%>
+<%@page import="es.cj.dao.UsuarioDAO"%>
+<%@page import="es.cj.dao.EmpresaDAOImpl"%>
+<%@page import="es.cj.dao.EmpresaDAO"%>
+<%@page import="es.cj.bean.Visitas"%>
+<%@page import="java.util.List"%>
+<%@page import="es.cj.dao.VisitasDAO"%>
+<%@page import="es.cj.dao.VisitasDAOImpl"%>
+<%@page import="es.cj.bean.Conexion"%>
 <%@page import="es.cj.bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -14,7 +27,29 @@
 <link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"	crossorigin="anonymous">
 <link rel="icon" href="../imagenes/icono.png">
 
-<title>Series</title>
+<style>
+.container {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  margin-top: 1.5em;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.anadir {
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 1.5em;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+</style>
+
+<title>Inicio</title>
 </head>
 <body>
 
@@ -32,7 +67,17 @@
 			if (usuario.getTipo() != 1) {
 				response.sendRedirect("../index.jsp?mensaje=Solo accesible a tutores");
 			} else {
-			
+				Conexion con = new Conexion(usu, pass, driver, bd);
+				
+				UsuarioDAO uDAO = new UsuarioDAOImpl();
+				
+				EmpresaDAO eDAO = new EmpresaDAOImpl();
+				
+				TutoresLaboralesDAO tDAO = new TutoresLaboralesDAOImpl();
+				
+				VisitasDAO vDAO = new VisitasDAOImpl();
+				List<Visitas> visitas = vDAO.listar(con, usuario);
+				
 	%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -46,7 +91,7 @@
   <div class="collapse navbar-collapse order-3" id="navbarTogglerDemo02">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#"><strong>Home <span class="sr-only">(current)</span></strong></a>
+        <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"><strong>Link</strong></a>
@@ -66,11 +111,192 @@
   </div>
 </nav>
 
+<div class="anadir">
+	<a class="btn btn-primary" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Visita</b></a>	
+</div>
 
-<h1>Principal Tutor</h1>
+<!-- Modal -->
+<div class="modal fade" id="modalAnadir" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Nueva Visita</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
 
+								<form role="form" method="POST" action="../EditarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<div class="form-group">
+										<label>Empresa</label>
+										<div class="input-group mb-3">
+										  <select class="custom-select" id="inputGroupSelect01" required>
+										    <%
+										    	List<Empresa> empresasL = eDAO.listarTodo(con);
+										    	for(Empresa emp:empresasL) {
+										    		List<TutoresLaborales> tutores = tDAO.listarXTutor(con, usuario.getIdUsuario());
+										    		for(TutoresLaborales tut:tutores) {
+										    			if(emp.getIdEmpresa() == tut.getIdEmpresa()){
+										    				%>
+												    		<option value="<%=emp.getIdEmpresa() %>"><%=emp.getNombre() %></option>
+												    		<%
+											    		}
+										    		
+										    	}
+										    	}
+										    %>
+										  </select>
+										</div>
+										</div>
+										<span id="spempresa" style="color: red"></span>
+										<div class="form-group">
+											<label >Alumno</label>
+											<div class="input-group mb-3">
+										  <select class="custom-select" id="inputGroupSelect01" required>
+										  <option selected>Alumnos...</option>
+										    <%
+										    	List<Usuario> alumnos = uDAO.listarXTipo(con, 2);
+										    	for(Usuario alum:alumnos) {
+										    		TutoresLaborales tutalumnos = tDAO.listarXAlumno(con, alum.getIdUsuario());
+										    		%>
+										    		<option value="<%=alum.getIdUsuario() %>"><%=tutalumnos.getIdAlumno() %> <%=tutalumnos.getIdProfesor() %></option>
+													<%
+										    			if(usuario.getIdUsuario() == tutalumnos.getIdProfesor()){
+										    				%>
+												    		<option value="<%=alum.getIdUsuario() %>"><%=alum.getNombre() %> <%=alum.getApellidos() %></option>
+												    		<%
+											    		}
+										    	}
+										    	
+										    %>
+										  </select>
+										</div>
+											</div>
+											<span id="spalumno" style="color: red"></span>
+											<div class="form-group">
+												<label>Fecha</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+												</div>
+												</div>
+												<div>
+													<span id="spfecha" style="color: red"></span>
+												</div>
+												<div class="form-group">
+												<label>Hora de Inicio</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+												</div>
+												</div>
+												<div>
+													<span id="sphoraini" style="color: red"></span>
+												</div>	
+												<div class="form-group">
+												<label>Hora de Finalización</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+												</div>
+												</div>
+												<div>
+													<span id="sphorafin" style="color: red"></span>
+												</div>
+												<div class="form-group">
+												<label>Tipo</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+												</div>
+												</div>
+												<div>
+													<span id="sptipo" style="color: red"></span>
+												</div>
+													<input type="hidden" id="aceptado" name="aceptado" value="0" class="form-control">
+													<input type="hidden" id="idProfesor" name="idProfesor" value="<%=usuario.getIdUsuario() %>" class="form-control">
+																
+								<button type="submit" class="btn btn-success">Enviar</button>
+							
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
 
-
+<div class="container">
+<div class="row" style="margin: 0 auto;">
+<%
+	int cont = 0;
+	for (Visitas v:visitas) {
+		Usuario profesor = uDAO.listarXId(con, v.getIdProfesor());
+		Usuario alumno = uDAO.listarXId(con, v.getIdAlumno());
+		Empresa empresa = eDAO.listarXId(con, v.getIdEmpresa());
+		%>
+		<div class="card text-white bg-dark mb-3" style="width: 32.6%;">
+		  <div class="card-header"><b><%=profesor.getNombre() %> <%=profesor.getApellidos() %></b></div>
+		  <div class="card-body">
+		    <h5 class="card-title">Datos de la visita</h5>
+		    <p class="card-text"><b>Empresa</b>: <%=empresa.getNombre() %></p>
+		    <p class="card-text"><b>Alumno</b>: <%=alumno.getNombre() %> <%=alumno.getApellidos() %></p>
+		    <p class="card-text"><b>Fecha</b>: <%=v.getFecha() %></p>
+		    <p class="card-text"><b>Hora de Inicio</b>: <%=v.getHora_ini() %></p>
+		    <p class="card-text"><b>Hora de Finalización</b>: <%=v.getHora_fin() %></p>
+		    <p class="card-text"><b>Tipo</b>: <%=v.getTipo() %></p>
+		    <%
+		    	if(v.getAceptado() == 0){
+		    		%>
+		    		<p class="card-text" style="color: #1E90FF"><i class="fas fa-ellipsis-h"></i> <b>Pendiente</b></p>
+		    		<%
+		    	} else if (v.getAceptado() == 1) {
+		    		%>
+		    		<p class="card-text" style="color: red"><i class="fas fa-ban"></i> <b>Denegado</b></p>
+		    		<%
+				} else {
+					%>
+		    		<p class="card-text" style="color: green"><i class="fas fa-check"></i> <b>Aceptado</b></p>
+		    		<%
+				}
+		    %>
+		    
+		    <a href="#" class="btn btn-danger" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
+		  </div>
+		</div>
+		<%
+			if (cont == 2){
+				cont = 0;
+			} else  {
+				%>
+				<div style="width: 1.1%"></div>
+				<%
+			}
+		%>
+	
+		<%
+		cont = cont + 1;
+	}
+%>
+</div>
+</div>
 
 <%
 			}
