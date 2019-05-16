@@ -8,4 +8,6 @@ import es.cj.bean.Visitas;
 
 public interface VisitasDAO {
 	public List<Visitas> listar(Conexion c, Usuario u);
+	public int borrar(Conexion c, int idAlumno, int idProfesor, int idEmpresa, String fecha);
+	public int insertar(Conexion c, Visitas visita);
 }

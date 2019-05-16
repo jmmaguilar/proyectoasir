@@ -56,6 +56,12 @@
   	<description></description>
   	<servlet-class>es.cj.controller.BorrarFicha</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BorrarVisita</servlet-name>
+  	<display-name>BorrarVisita</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.BorrarVisita</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -79,6 +85,10 @@
   <servlet-mapping>
   	<servlet-name>BorrarFicha</servlet-name>
   	<url-pattern>/BorrarFicha</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BorrarVisita</servlet-name>
+  	<url-pattern>/BorrarVisita</url-pattern>
   </servlet-mapping>
 
   

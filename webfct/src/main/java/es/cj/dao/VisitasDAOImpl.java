@@ -41,4 +41,47 @@ public class VisitasDAOImpl implements VisitasDAO {
 		return visitas;
 	}
 
+	public int borrar(Conexion c, int idAlumno, int idProfesor, int idEmpresa, String fecha) {
+		int filas = 0;
+		
+		String sql = "delete from visitas where fecha = ? and idAlumno = ? and idProfesor = ? and idEmpresa = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setString(1, fecha);
+			sentencia.setInt(2, idAlumno);
+			sentencia.setInt(3, idProfesor);
+			sentencia.setInt(4, idEmpresa);
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public int insertar(Conexion c, Visitas visita) {
+		int filas = 0;
+		
+		String sql = "insert into visitas values (?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, visita.getIdProfesor());
+			sentencia.setInt(2, visita.getIdEmpresa());
+			sentencia.setInt(3, visita.getIdAlumno());
+			sentencia.setString(4, visita.getFecha());
+			sentencia.setString(5, visita.getHora_ini());
+			sentencia.setString(6, visita.getHora_fin());
+			sentencia.setInt(7, visita.getAceptado());
+			sentencia.setString(8, visita.getTipo());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}
+
 }

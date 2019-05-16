@@ -112,7 +112,7 @@
 </nav>
 
 <div class="anadir">
-	<a class="btn btn-primary" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Visita</b></a>	
+	<a class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Visita</b></a>	
 </div>
 
 <!-- Modal -->
@@ -132,7 +132,7 @@
 									<div class="form-group">
 										<label>Empresa</label>
 										<div class="input-group mb-3">
-										  <select class="custom-select" id="inputGroupSelect01" required>
+										  <select class="custom-select" id="empresa" name="empresa" required>
 										    <%
 										    	List<Empresa> empresasL = eDAO.listarTodo(con);
 										    	for(Empresa emp:empresasL) {
@@ -154,7 +154,7 @@
 										<div class="form-group">
 											<label >Alumno</label>
 											<div class="input-group mb-3">
-										  <select class="custom-select" id="inputGroupSelect01" required>
+										  <select class="custom-select" id="alumno" name="alumno" required>
 										  <option selected>Alumnos...</option>
 										    <%
 										    	List<Usuario> alumnos = uDAO.listarXTipo(con, 2);
@@ -180,10 +180,12 @@
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
-															<i class="fas fa-align-left"></i>
+															<i class="far fa-calendar-alt"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+													<input type="text" class="form-control" id="fecha" name="fecha" placeholder="YYYY-MM-DD" required 
+													pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" 
+													title="Enter a date in this format YYYY-MM-DD"/>
 												</div>
 												</div>
 												<div>
@@ -194,10 +196,10 @@
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
-															<i class="fas fa-align-left"></i>
+															<i class="far fa-hourglass"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+													<input type="time" class="form-control" id="horaini" name="horaini" required="required">
 												</div>
 												</div>
 												<div>
@@ -208,10 +210,10 @@
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
-															<i class="fas fa-align-left"></i>
+															<i class="far fa-hourglass"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+													<input type="time" class="form-control" id="horafin" name="horafin" required="required">
 												</div>
 												</div>
 												<div>
@@ -225,7 +227,7 @@
 															<i class="fas fa-align-left"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" class="form-control" required="required">
+													<input type="text" id="tipo" name="tipo" class="form-control" required="required">
 												</div>
 												</div>
 												<div>
@@ -278,7 +280,34 @@
 				}
 		    %>
 		    
-		    <a href="#" class="btn btn-danger" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
+		    <a class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
+		    
+		    		  <!-- Modal -->
+		  <div class="modal fade" id="modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">¿Seguro que desea borrar esta visita?</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../BorrarVisita" style="margin:0;" onsubmit="return validarAnadirSerie()">
+													<input type="hidden" id="fecha" name="fecha" value="<%=v.getFecha() %>" class="form-control">
+													<input type="hidden" id="idAlumno" name="idAlumno" value="<%=v.getIdAlumno() %>" class="form-control">
+													<input type="hidden" id="idEmpresa" name="idEmpresa" value="<%=v.getIdEmpresa() %>" class="form-control">
+													<input type="hidden" id="idProfesor" name="idProfesor" value="<%=v.getIdProfesor() %>" class="form-control">						
+								<button type="submit" class="btn btn-success">Sí</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+		    
 		  </div>
 		</div>
 		<%
