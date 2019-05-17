@@ -111,7 +111,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			sentencia.setInt(1, idUsuario);
 			ResultSet resultado = sentencia.executeQuery();
 			if (resultado.next()) {
-				usuario = new Usuario(resultado.getString("login"), 
+				usuario = new Usuario(resultado.getInt("idUsuario"),
+						  resultado.getString("login"), 
 						  resultado.getString("nombre"), 
 						  resultado.getString("apellidos"), 
 						  resultado.getString("password"), 
@@ -135,7 +136,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			sentencia.setInt(1, tipo);
 			ResultSet resultado = sentencia.executeQuery();
 			while (resultado.next()) {
-				Usuario auxiliar = new Usuario(resultado.getString("login"), 
+				Usuario auxiliar = new Usuario(resultado.getInt("idUsuario"),
+						resultado.getString("login"), 
 						  resultado.getString("nombre"), 
 						  resultado.getString("apellidos"), 
 						  resultado.getString("password"), 

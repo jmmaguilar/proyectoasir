@@ -87,8 +87,8 @@ public class TutoresLaboralesDAOImpl implements TutoresLaboralesDAO {
 			ResultSet resultado = sentencia.executeQuery();
 			if (resultado.next()) {
 				usuario = new TutoresLaborales(resultado.getInt("idProfesor"), 
-																 resultado.getInt("idAlumno"), 
-																 resultado.getInt("idEmpresa"));
+											   resultado.getInt("idAlumno"), 
+							   				   resultado.getInt("idEmpresa"));
 				
 			}
 		} catch (SQLException e) {

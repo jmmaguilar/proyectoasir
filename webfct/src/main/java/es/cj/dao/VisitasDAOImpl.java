@@ -84,4 +84,26 @@ public class VisitasDAOImpl implements VisitasDAO {
 		return filas;
 	}
 
+	public boolean comVisitas(Conexion c, Visitas visita) {
+		boolean existe = false;
+		
+		String sql = "select * from visitas where idProfesor = ? and idEmpresa = ? and idAlumno = ? and fecha = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, visita.getIdProfesor());
+			sentencia.setInt(2, visita.getIdEmpresa());
+			sentencia.setInt(3, visita.getIdAlumno());
+			sentencia.setString(4, visita.getFecha());
+			ResultSet resultado = sentencia.executeQuery();
+			while (resultado.next()) {
+				existe = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return existe;
+	}
+
 }

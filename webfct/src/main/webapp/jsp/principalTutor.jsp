@@ -112,6 +112,24 @@
 </nav>
 
 <div class="anadir">
+<%
+				String error = request.getParameter("mensaje");
+					if (error != null) {
+			%>
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" style="text-align: center;">
+				<%
+					out.print(error);
+				%>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<br />
+			<%
+				}
+			%>
 	<a class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Visita</b></a>	
 </div>
 
@@ -128,11 +146,12 @@
 							</div>
 							<div class="modal-body">
 
-								<form role="form" method="POST" action="../EditarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+								<form role="form" method="POST" action="../AnadirVisita" style="margin:0;" onsubmit="return validarAnadirSerie()">
 									<div class="form-group">
 										<label>Empresa</label>
 										<div class="input-group mb-3">
-										  <select class="custom-select" id="empresa" name="empresa" required>
+										  <select class="custom-select" name="idEmpresa" required>
+										  <option selected>Empresas...</option>
 										    <%
 										    	List<Empresa> empresasL = eDAO.listarTodo(con);
 										    	for(Empresa emp:empresasL) {
@@ -154,15 +173,12 @@
 										<div class="form-group">
 											<label >Alumno</label>
 											<div class="input-group mb-3">
-										  <select class="custom-select" id="alumno" name="alumno" required>
+										  <select class="custom-select"  name="idAlumno" required>
 										  <option selected>Alumnos...</option>
 										    <%
 										    	List<Usuario> alumnos = uDAO.listarXTipo(con, 2);
 										    	for(Usuario alum:alumnos) {
 										    		TutoresLaborales tutalumnos = tDAO.listarXAlumno(con, alum.getIdUsuario());
-										    		%>
-										    		<option value="<%=alum.getIdUsuario() %>"><%=tutalumnos.getIdAlumno() %> <%=tutalumnos.getIdProfesor() %></option>
-													<%
 										    			if(usuario.getIdUsuario() == tutalumnos.getIdProfesor()){
 										    				%>
 												    		<option value="<%=alum.getIdUsuario() %>"><%=alum.getNombre() %> <%=alum.getApellidos() %></option>
@@ -233,7 +249,6 @@
 												<div>
 													<span id="sptipo" style="color: red"></span>
 												</div>
-													<input type="hidden" id="aceptado" name="aceptado" value="0" class="form-control">
 													<input type="hidden" id="idProfesor" name="idProfesor" value="<%=usuario.getIdUsuario() %>" class="form-control">
 																
 								<button type="submit" class="btn btn-success">Enviar</button>

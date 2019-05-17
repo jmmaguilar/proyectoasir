@@ -57,6 +57,7 @@ public class BorrarVisita extends HttpServlet {
 			response.sendRedirect("jsp/principalTutor.jsp?mensaje=Error al borrar");
 
 		}
+		
 	}
 
 	/**
