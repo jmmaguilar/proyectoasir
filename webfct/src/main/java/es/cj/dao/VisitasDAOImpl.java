@@ -106,4 +106,31 @@ public class VisitasDAOImpl implements VisitasDAO {
 		return existe;
 	}
 
+	public List<Visitas> listarPendientes(Conexion c) {
+		List<Visitas> visitas = new ArrayList<Visitas>();
+		
+		String sql = "Select * from visitas where aceptado = 0";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			ResultSet resultado = sentencia.executeQuery();
+			while (resultado.next()) {
+				Visitas auxiliar = new Visitas(resultado.getInt("idProfesor"), 
+											   resultado.getInt("idEmpresa"), 
+											   resultado.getInt("idAlumno"), 
+											   resultado.getString("fecha"), 
+											   resultado.getString("hora_ini"), 
+											   resultado.getString("hora_fin"), 
+											   resultado.getInt("aceptado"), 
+											   resultado.getString("tipo"));
+				visitas.add(auxiliar);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return visitas;
+	}
+
 }

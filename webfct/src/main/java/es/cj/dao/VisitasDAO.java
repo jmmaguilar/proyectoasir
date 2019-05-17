@@ -11,4 +11,5 @@ public interface VisitasDAO {
 	public int borrar(Conexion c, int idAlumno, int idProfesor, int idEmpresa, String fecha);
 	public int insertar(Conexion c, Visitas visita);
 	public boolean comVisitas(Conexion c, Visitas visita);
+	public List<Visitas> listarPendientes(Conexion c);
 }
