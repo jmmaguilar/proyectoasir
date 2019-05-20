@@ -133,4 +133,25 @@ public class VisitasDAOImpl implements VisitasDAO {
 		return visitas;
 	}
 
+	public int cambiarEstado(Conexion c, int estado, int idAlumno, int idEmpresa, int idProfesor, String fecha) {
+		int filas = 0;
+		
+		String sql = "update visitas set aceptado = ? where idAlumno = ? and idEmpresa = ? and idProfesor = ? and fecha = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, estado);
+			sentencia.setInt(2, idAlumno);
+			sentencia.setInt(3, idEmpresa);
+			sentencia.setInt(4, idProfesor);
+			sentencia.setString(5, fecha);
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}	
+
 }

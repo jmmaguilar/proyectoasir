@@ -131,37 +131,14 @@
 		    		<%
 				}
 		    %>
+			<div class="" style="width:100%;" role="group">		    
+		    <button type="button" style="width:49%;" class="btn btn-success" onclick="location.href='../AceptDenyVisita?aceptado=2&idAlumno=<%=v.getIdAlumno() %>&idEmpresa=<%=v.getIdEmpresa() %>&idProfesor=<%=v.getIdProfesor() %>&fecha=<%=v.getFecha() %>'"><i class="fas fa-check"></i> Aceptar</button>
+		    <button type="button" style="width:49%;" class="btn btn-danger" onclick="location.href='../AceptDenyVisita?aceptado=1&idAlumno=<%=v.getIdAlumno() %>&idEmpresa=<%=v.getIdEmpresa() %>&idProfesor=<%=v.getIdProfesor() %>&fecha=<%=v.getFecha() %>'"><i class="fas fa-ban"></i> Denegar</button>
 		    
-		    <a class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
-		    
-		    		  <!-- Modal -->
-		  <div class="modal fade" id="modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle" style="color: black;">¿Seguro que desea borrar esta visita?</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-
-								<form role="form" method="POST" action="../BorrarVisita" style="margin:0;" onsubmit="return validarAnadirSerie()">
-													<input type="hidden" id="fecha" name="fecha" value="<%=v.getFecha() %>" class="form-control">
-													<input type="hidden" id="idAlumno" name="idAlumno" value="<%=v.getIdAlumno() %>" class="form-control">
-													<input type="hidden" id="idEmpresa" name="idEmpresa" value="<%=v.getIdEmpresa() %>" class="form-control">
-													<input type="hidden" id="idProfesor" name="idProfesor" value="<%=v.getIdProfesor() %>" class="form-control">						
-								<button type="submit" class="btn btn-success">Sí</button>
-								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				</div>
-		    
-		  </div>
-		</div>
+		    </div>
+	    
+		    		  </div>
+		    		  </div>
 		<%
 			if (cont == 2){
 				cont = 0;

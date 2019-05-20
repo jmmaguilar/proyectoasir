@@ -68,6 +68,18 @@
   	<description></description>
   	<servlet-class>es.cj.controller.AnadirVisita</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AceptDenyFicha</servlet-name>
+  	<display-name>AceptDenyFicha</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.AceptDenyFicha</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AceptDenyVisita</servlet-name>
+  	<display-name>AceptDenyVisita</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.AceptDenyVisita</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -99,6 +111,14 @@
   <servlet-mapping>
   	<servlet-name>AnadirVisita</servlet-name>
   	<url-pattern>/AnadirVisita</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AceptDenyFicha</servlet-name>
+  	<url-pattern>/AceptDenyFicha</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AceptDenyVisita</servlet-name>
+  	<url-pattern>/AceptDenyVisita</url-pattern>
   </servlet-mapping>
 
   

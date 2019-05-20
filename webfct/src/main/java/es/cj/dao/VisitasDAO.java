@@ -12,4 +12,5 @@ public interface VisitasDAO {
 	public int insertar(Conexion c, Visitas visita);
 	public boolean comVisitas(Conexion c, Visitas visita);
 	public List<Visitas> listarPendientes(Conexion c);
+	public int cambiarEstado(Conexion c, int estado, int idAlumno, int idEmpresa, int idProfesor, String fecha);
 }
