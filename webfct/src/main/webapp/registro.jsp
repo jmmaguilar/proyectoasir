@@ -103,63 +103,6 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <br />
 	<% } %>
 </div>
-<!--  
-<div class="container white" style="background-color: white;vertical-align: middle;border-radius: 5px;margin-top:12%;margin-bottom:15%;padding: 50px 20px 50px 10px;">
-		<div class="row justify-content"  style="margin: 10px 10px 10px 10px;">
-			
-			 <img src="../imagenes/icono.png" style="margin: 5em 0 0 15%;" width="250em" height="300em">
-			 
-			<form role="form" method="POST" action="../RegistrarUsuario" style="margin: 0 0 0 15%;" onsubmit="return validarFormRegistro()">
-			<h1>Registro</h1> <hr/>
-				<label>Login</label>
-			<div>
- 		 		<div class="input-group mb-2 mr-sm-2">
-  	  				<div class="input-group-prepend">
-   	   				<div class="input-group-text"><i class="fas fa-user"></i></div>
-   	 			</div>
-  	 			<input type="text" class="form-control" id="login" name="login" autofocus required="required">
- 	 		</div>
- 	 		<span id="splogin" style="color: red"></span>
-				<div class="form-group">
-					<label>Contraseña</label>
-					<div class="input-group mb-2 mr-sm-2">
-  	  					<div class="input-group-prepend">
-   	   					<div class="input-group-text"><i class="fas fa-key"></i></div>
-   	 				</div>
-					 <input type="password" class="form-control" id="password" name="password" required="required">
-				</div>
-				</div>
-				<span id="sppass" style="color: red"></span>
-				<div class="form-group">
-					<label>Nombre</label>
-					<div class="input-group mb-2 mr-sm-2">
-  	  					<div class="input-group-prepend">
-   	   					<div class="input-group-text"><i class="fas fa-file-signature"></i></div>
-   	 				</div>
-					 <input type="text" class="form-control" id="nombre" name="nombre" required="required">
-				</div>
-				</div>
-				<span id="spnombre" style="color: red"></span>
-				<div class="form-group">
-					<label for="password">Email</label>
-					<div class="input-group mb-2 mr-sm-2">
-  	  					<div class="input-group-prepend">
-   	   					<div class="input-group-text"><i class="fas fa-at"></i></div>
-   	 				</div>
-					 <input type="email" class="form-control" id="email" name="email" required="required">
-				</div>
-				</div>
-				<div>
-				<span id="spemail" style="color: red"></span>
-				</div>
-				<div>
-				<button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Enviar</button>
-				<button type="button" class="btn btn-dark" onclick="location.href='../index.jsp'"><i class="fas fa-arrow-left"></i> Volver</button>
-				</div>
-			</form>
-			
-</div>
-	-->
 
 <div class="login">
 	<h1>Registro</h1>
