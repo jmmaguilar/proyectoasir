@@ -119,6 +119,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
     <div>
 		<button type="submit" class="btn btn-primary btn-large" style="width:10.5em;"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
   	 	<button type="submit" class="btn btn-secondary btn-large" onclick="location.href='registro.jsp'"><i class="fas fa-user-plus"></i> Registrarse</button>
+    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
     </form>
 </div>
@@ -127,5 +128,4 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <script src="js/jquery-3.3.1.slim.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
 </body></html>

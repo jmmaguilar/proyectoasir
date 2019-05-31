@@ -152,6 +152,46 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		
 		return usuarios;	}
 
+	public int actualizarUsuario(Conexion c, Usuario usu) {
+		int filas = 0;
+		
+		if (usu.getPassword() == null) {
+			String sql = "update usuarios set nombre = ?, apellidos = ?, email = ?, login = ?, tipo = ? where idUsuario = ?";
+			try {
+				PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+				sentencia.setString(1, usu.getNombre());
+				sentencia.setString(2, usu.getApellidos());
+				sentencia.setString(3, usu.getEmail());
+				sentencia.setString(4, usu.getLogin());
+				sentencia.setInt(5, usu.getTipo());
+				sentencia.setInt(6, usu.getIdUsuario());
+				filas = sentencia.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			String sql = "update usuarios set nombre = ?, apellidos = ?, email = ?, login = ?, password = AES_ENCRYPT(?, ?), tipo = ? where idUsuario = ?";
+			try {
+				PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+				sentencia.setString(1, usu.getNombre());
+				sentencia.setString(2, usu.getApellidos());
+				sentencia.setString(3, usu.getEmail());
+				sentencia.setString(4, usu.getLogin());
+				sentencia.setString(5, usu.getPassword());
+				sentencia.setString(7, passBD);
+				sentencia.setInt(8, usu.getTipo());
+				sentencia.setInt(9, usu.getIdUsuario());
+				filas = sentencia.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return filas;
+	}
+
 
 
 

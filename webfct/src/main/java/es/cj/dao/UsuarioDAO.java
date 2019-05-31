@@ -13,4 +13,5 @@ public interface UsuarioDAO {
 	public int insertar(Usuario usuario, Conexion con);
 	public Usuario listarXId(Conexion c, int idUsuario);
 	public List<Usuario> listarXTipo(Conexion c, int tipo);
+	public int actualizarUsuario(Conexion c, Usuario usu);
 }

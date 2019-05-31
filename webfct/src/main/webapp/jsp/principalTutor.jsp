@@ -94,7 +94,7 @@
         <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><strong>Link</strong></a>
+        <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Link2</strong></a>
