@@ -1,12 +1,5 @@
-<%@page import="es.cj.dao.EmpresaDAOImpl"%>
-<%@page import="es.cj.dao.EmpresaDAO"%>
-<%@page import="es.cj.bean.Empresa"%>
-<%@page import="es.cj.dao.UsuarioDAO"%>
 <%@page import="es.cj.dao.UsuarioDAOImpl"%>
-<%@page import="es.cj.bean.TutoresLaborales"%>
-<%@page import="org.w3c.dom.ls.LSInput"%>
-<%@page import="es.cj.dao.TutoresLaboralesDAOImpl"%>
-<%@page import="es.cj.dao.TutoresLaboralesDAO"%>
+<%@page import="es.cj.dao.UsuarioDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="es.cj.dao.FichasDAOImpl"%>
 <%@page import="es.cj.dao.FichasDAO"%>
@@ -28,7 +21,38 @@
 <link rel="stylesheet"	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"	crossorigin="anonymous">
 <link rel="icon" href="../imagenes/icono.png">
 
-<title>Información</title>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  border-radius: 0.5em;
+  overflow: hidden;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #343a40;
+  color: white;
+}
+
+#customers td {
+  text-align: center;
+}
+</style>
+
+<title>Administración</title>
 </head>
 <body>
 
@@ -43,18 +67,14 @@
 			String bd = sc.getInitParameter("database");
 			Usuario usuario = (Usuario)session.getAttribute("usuarioWeb");
 			
-			if (usuario.getTipo() != 2) {
-				response.sendRedirect("../index.jsp?mensaje=Solo accesible al alumnado");
-			} else {
-			Conexion con = new Conexion(usu, pass, driver, bd);
+			if (usuario.getTipo() == 0 || usuario.getTipo() == 1) {
+				Conexion con = new Conexion(usu, pass, driver, bd);
+				
+				UsuarioDAO uDAO = new UsuarioDAOImpl();
+				List<Usuario> usuarios = uDAO.listarTodo(con);
 			
-			TutoresLaboralesDAO tDAO = new TutoresLaboralesDAOImpl();
-			TutoresLaborales tutores = tDAO.listarXAlumno(con, usuario.getIdUsuario());
 			
-			UsuarioDAO uDAO = new UsuarioDAOImpl();
-			EmpresaDAO eDAO = new EmpresaDAOImpl();
-	
-			
+
 	%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -67,11 +87,31 @@
 
   <div class="collapse navbar-collapse order-3" id="navbarTogglerDemo02">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="principalAlumno.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+    <%
+          if (usuario.getTipo() == 0) {
+    	  %>
+    	  <li class="nav-item">
+        <a class="nav-link" href="principalDirectivo.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
+      	  <%
+      } else if (usuario.getTipo() == 1) {
+    	  %>
+    	  <li class="nav-item">
+        <a class="nav-link" href="principalTutor.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+      </li>
+      	  <%
+      }
+      	if (usuario.getTipo() == 1) {
+      		%>
+      		<li class="nav-item">
+            <a class="nav-link" href="informacionTutor.jsp"><strong>Alumnos</strong></a>
+          </li>
+          <%
+      	}
+      %>
+      
       <li class="nav-item active">
-        <a class="nav-link" href="#"><strong>Tutor y Empresa</strong></a>
+        <a class="nav-link" href="administracionUsuarios.jsp"><strong>Administración de Usuarios</strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
@@ -102,33 +142,56 @@
 			<%
 				}
 			%>
-<%
-	Usuario tutor = uDAO.listarXId(con, tutores.getIdProfesor());
-	Empresa empresa = eDAO.listarXId(con, tutores.getIdEmpresa());
-%>
-<div class="card-group">
-<div class="card" style="width: 50%;">
-  <div class="card-body">
-    <h5 class="card-title"><b>Tutor</b></h5>
-  	<ul class="list-group list-group-flush">
-    	<li class="list-group-item"><%=tutor.getNombre() %> <%=tutor.getApellidos() %></li>
-    	<li class="list-group-item"><%=tutor.getEmail() %></li>
-  	</ul>
-  </div>
-</div>
+			
+<table id="customers">
+  <tr>
+    <th>Usuario</th>
+    <th>Nombre y Apellidos</th>
+    <th>Tipo</th>
+    <th>Editar / Borrar</th>
+  </tr>
+  <%
+  	for (Usuario u:usuarios) {
+  	%>
+  	  <tr>
+  		<td><%=u.getLogin() %></td>
+  		<td><%=u.getNombre() %> <%=u.getApellidos() %></td>
+  		<td>
+  		<%
+  			if (u.getTipo() == 0) {
+  				%>
+  					Directivo
+  				<%
+  				
+  			} else if (u.getTipo() == 1) {
+  				%>
+					Profesor
+				<%
+  			} else {
+  				%>
+					Alumno
+				<%
+  			}
+  		%>
+  		</td>
+  		<td>
+  			<button type="button" data-toggle="modal" data-target="#modalEditar" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
+  			<button type="button" data-toggle="modal" data-target="#modalBorrar" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
+  		</td>
+  	  </tr>
+  	<%
+  	}
+  %>
+  
+		  
 
-<div class="card" style="width: 50%;">
-  <div class="card-body">
-    <h5 class="card-title"><b>Empresa</b></h5>
-   	<ul class="list-group list-group-flush">
-    	<li class="list-group-item"><%=empresa.getNombre() %></li>
-    	<li class="list-group-item"><%=empresa.getDireccion() %></li>
-  	</ul>
-  </div>
-</div>
-</div>
+</table>
+<button type="button" class="btn btn-success" style="margin-top: 1em; width: 100%;"></button>
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="margin-top: 1em; width: 100%;"><b>Añadir nuevo día</b></button>
 
 <%
+			} else {
+				response.sendRedirect("../index.jsp?mensaje=Solo accesible al profesorado");
 			}
 			}
 		%>

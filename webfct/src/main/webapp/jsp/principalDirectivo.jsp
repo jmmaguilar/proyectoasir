@@ -37,7 +37,7 @@
 }
 </style>
 
-<title>Series</title>
+<title>Inicio</title>
 </head>
 <body>
 
@@ -63,6 +63,7 @@
 				
 				VisitasDAO vDAO = new VisitasDAOImpl();
 				List<Visitas> visitas = vDAO.listarPendientes(con);
+				
 			
 	%>
 
@@ -77,18 +78,13 @@
   <div class="collapse navbar-collapse order-3" id="navbarTogglerDemo02">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#"><strong>Home <span class="sr-only">(current)</span></strong></a>
+        <a class="nav-link" href="#"><strong>Inicio<span class="sr-only">(current)</span></strong></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="administracionUsuarios.jsp"><strong>Administración de Usuarios</strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Link2</strong></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link text-danger" href="../CerrarSesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>

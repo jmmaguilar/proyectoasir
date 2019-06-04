@@ -192,6 +192,31 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return filas;
 	}
 
+	public List<Usuario> listarTodo(Conexion c) {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		String sql = "select * from usuarios";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			ResultSet resultado = sentencia.executeQuery();
+			while (resultado.next()) {
+				Usuario auxiliar = new Usuario(resultado.getInt("idUsuario"),
+						resultado.getString("login"), 
+						  resultado.getString("nombre"), 
+						  resultado.getString("apellidos"), 
+						  resultado.getString("password"), 
+						  resultado.getString("email"), 
+						  resultado.getInt("tipo"));
+				usuarios.add(auxiliar);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return usuarios;
+	}
+
 
 
 

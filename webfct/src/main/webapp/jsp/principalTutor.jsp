@@ -28,16 +28,6 @@
 <link rel="icon" href="../imagenes/icono.png">
 
 <style>
-.container {
-  position: absolute;
-  left: 10%;
-  width: 80%;
-  margin-top: 1.5em;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .anadir {
   margin: 0 auto;
@@ -97,15 +87,10 @@
         <a class="nav-link" href="informacionTutor.jsp"><strong>Alumnos</strong></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
+        <a class="nav-link" href="administracionUsuarios.jsp"><strong>Administración de Usuarios</strong></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Link2</strong></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-danger" href="../CerrarSesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
@@ -114,7 +99,7 @@
   </div>
 </nav>
 
-<div class="anadir">
+<div class="container" style="margin-top:1em;">
 <%
 				String error = request.getParameter("mensaje");
 					if (error != null) {
@@ -264,7 +249,7 @@
 				</div>
 
 <div class="container">
-<div class="row" style="margin: 0 auto;">
+<div class="row">
 <%
 	int cont = 0;
 	for (Visitas v:visitas) {
@@ -272,7 +257,8 @@
 		Usuario alumno = uDAO.listarXId(con, v.getIdAlumno());
 		Empresa empresa = eDAO.listarXId(con, v.getIdEmpresa());
 		%>
-		<div class="card text-white bg-dark mb-3" style="width: 32.6%;">
+		<div class="col-sm-4" style="margin-top:1em;">
+		<div class="card text-white bg-dark mb-3">
 		  <div class="card-header"><b><%=profesor.getNombre() %> <%=profesor.getApellidos() %></b></div>
 		  <div class="card-body">
 		    <h5 class="card-title">Datos de la visita</h5>
@@ -328,18 +314,9 @@
 		    
 		  </div>
 		</div>
+		</div>
 		<%
-			if (cont == 2){
-				cont = 0;
-			} else  {
-				%>
-				<div style="width: 1.1%"></div>
-				<%
-			}
-		%>
-	
-		<%
-		cont = cont + 1;
+
 	}
 %>
 </div>

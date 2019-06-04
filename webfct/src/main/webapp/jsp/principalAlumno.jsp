@@ -72,7 +72,10 @@
 			
 			FichasDAO fDAO = new FichasDAOImpl();
 			List<Fichas> fichas = fDAO.listar(con, (Usuario)session.getAttribute("usuarioWeb"));
-			
+
+			int horas = 0;
+			int minutos = 0;
+			int segundos = 0;
 	%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -93,14 +96,6 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Link2</strong></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link text-danger" href="../CerrarSesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
@@ -128,6 +123,7 @@
 			<%
 				}
 			%>
+			
 <table id="customers">
   <tr>
     <th>Fecha</th>
@@ -142,7 +138,34 @@
 		  <tr>
 		    <td><%=f.getFecha() %></td>
 		    <td><%=f.getDescripcion() %></td>
-		    <td><%=f.getHoras() %></td>
+		    <td><%=f.getHoras() %>
+		    <%		    	
+		    	int horasAux = Integer.parseInt(f.getHoras().substring(0, 2));
+		   		int minutosAux = Integer.parseInt(f.getHoras().substring(3, 5));
+		   		int segundosAux = Integer.parseInt(f.getHoras().substring(6, 8));
+		   		
+				if (segundos + segundosAux >= 60) {
+					segundos = (segundos + segundosAux) - 60;
+					if (minutos + minutosAux + 1 >= 60) {
+						minutos = (minutos + minutosAux + 1) - 60;
+						horas = horas + horasAux + 1;
+					} else {
+						minutos = minutos + minutosAux + 1;
+						horas = horas + horasAux;
+					}
+		    	} else {
+		    		segundos = segundos + segundosAux;
+		    		if (minutos + minutosAux >= 60) {
+						minutos = (minutos + minutosAux) - 60;
+						horas = horas + horasAux + 1;
+					} else {
+						minutos = minutos + minutosAux;
+						horas = horas + horasAux;
+					}
+		    	}
+		    %>
+		    </td>
+		    
 		    <td>
 		    <%
 		    	if(f.getObservaciones() == null) {
@@ -247,6 +270,7 @@
 	}
 %>
 </table>
+<button type="button" class="btn btn-success" style="margin-top: 1em; width: 100%;"><b>Horas Totales: <%=horas %>:<%=minutos %>:<%=segundos %></b></button>
 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="margin-top: 1em; width: 100%;"><b>Añadir nuevo día</b></button>
 
 <!-- Modal -->
