@@ -89,6 +89,9 @@
         <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="informacionAlumno.jsp"><strong>Tutor y Empresa</strong></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
       </li>
       <li class="nav-item dropdown">

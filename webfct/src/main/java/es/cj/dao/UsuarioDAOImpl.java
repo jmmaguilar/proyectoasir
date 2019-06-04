@@ -155,7 +155,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public int actualizarUsuario(Conexion c, Usuario usu) {
 		int filas = 0;
 		
-		if (usu.getPassword() == null) {
+		if (usu.getPassword() == null || usu.getPassword() == "") {
 			String sql = "update usuarios set nombre = ?, apellidos = ?, email = ?, login = ?, tipo = ? where idUsuario = ?";
 			try {
 				PreparedStatement sentencia = c.getConector().prepareStatement(sql);
@@ -179,9 +179,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				sentencia.setString(3, usu.getEmail());
 				sentencia.setString(4, usu.getLogin());
 				sentencia.setString(5, usu.getPassword());
-				sentencia.setString(7, passBD);
-				sentencia.setInt(8, usu.getTipo());
-				sentencia.setInt(9, usu.getIdUsuario());
+				sentencia.setString(6, passBD);
+				sentencia.setInt(7, usu.getTipo());
+				sentencia.setInt(8, usu.getIdUsuario());
 				filas = sentencia.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

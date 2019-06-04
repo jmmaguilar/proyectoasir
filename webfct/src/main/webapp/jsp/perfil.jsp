@@ -61,6 +61,9 @@
       } else {
     	  %>
     	  <a class="nav-link" href="principalAlumno.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+    	  <li class="nav-item">
+       		<a class="nav-link" href="informacionAlumno.jsp"><strong>Tutor y Empresa</strong></a>
+      	  </li>
       	  <%
       }
       %>
@@ -143,7 +146,7 @@
 											<input type="password" class="form-control" id="passwordNueva" name="passwordNueva">
 										</div>
 					
-											<input type="hidden" id="idUsuario" name="idUsuario" value="<%=usuario.getPassword() %>" class="form-control">
+											<input type="hidden" id="idUsuario" name="idUsuario" value="<%=usuario.getIdUsuario() %>" class="form-control">
 											<input type="hidden" id="tipo" name="tipo" value="<%=usuario.getTipo() %>" class="form-control">
 											<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">
 
@@ -167,7 +170,7 @@
 													<i class="fas fa-key"></i>
 												</div>
 											</div>
-											<input type="password" class="form-control" id="password" name="password" required="required">
+											<input type="password" class="form-control" id="password" name="password" required="required" autofocus>
 										</div>
 							</div>
 							<div class="modal-footer">
