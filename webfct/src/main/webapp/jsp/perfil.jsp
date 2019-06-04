@@ -52,15 +52,24 @@
       <%
       if (usuario.getTipo() == 0) {
     	  %>
+    	  <li>
     	  <a class="nav-link" href="principalDirectivo.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+    	  </li>
       	  <%
       } else if (usuario.getTipo() == 1) {
     	  %>
+    	  <li>
     	  <a class="nav-link" href="principalTutor.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+    	  </li>
+    	  <li class="nav-item">
+       		<a class="nav-link" href="informacionTutor.jsp"><strong>Alumnos</strong></a>
+     	 </li>
       	  <%
       } else {
     	  %>
+    	  <li>
     	  <a class="nav-link" href="principalAlumno.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+    	  </li>
     	  <li class="nav-item">
        		<a class="nav-link" href="informacionAlumno.jsp"><strong>Tutor y Empresa</strong></a>
       	  </li>
