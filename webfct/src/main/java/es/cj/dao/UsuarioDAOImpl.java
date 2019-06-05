@@ -217,6 +217,22 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuarios;
 	}
 
+	public int borrar(Conexion c, int idUsuario) {
+		int filas = 0;
+		
+		String sql = "delete from usuarios where idUsuario = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, idUsuario);
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
 
 
 

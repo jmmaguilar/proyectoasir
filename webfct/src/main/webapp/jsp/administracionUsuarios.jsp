@@ -160,25 +160,109 @@
   		<%
   			if (u.getTipo() == 0) {
   				%>
-  					Directivo
+  					<a style="color: #efb810;">Directivo</a>
   				<%
   				
   			} else if (u.getTipo() == 1) {
   				%>
-					Profesor
+					<a style="color:#4c2882;">Profesor</a>
 				<%
   			} else {
   				%>
-					Alumno
+					<a style="color:#56A0D3;">Alumno</a>
 				<%
   			}
   		%>
   		</td>
   		<td>
-  			<button type="button" data-toggle="modal" data-target="#modalEditar" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
-  			<button type="button" data-toggle="modal" data-target="#modalBorrar" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
+  			<button type="button" data-toggle="modal" data-target="#modalEditar<%=u.getLogin() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
+  			<button type="button" data-toggle="modal" data-target="#modalBorrar<%=u.getLogin() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
   		</td>
   	  </tr>
+  	  		  <div class="modal fade" id="modalBorrar<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que desea el usuario <b><%=u.getLogin() %></b>?</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../BorrarUsuario" style="margin:0;" onsubmit="return validarAnadirSerie()">
+													<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">					
+								<button type="submit" class="btn btn-success">Sí</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+		  
+<div class="modal fade" id="modalEditar<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Modificar Día </h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../EditarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<div class="form-group">
+										<label>Descripción</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-align-left"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control" id="descripcion" name="descripcion" value="" required="required">
+										</div>
+										</div>
+										<span id="spdescripcion" style="color: red"></span>
+										<div class="form-group">
+											<label >Horas</label>
+											<div class="input-group mb-2 mr-sm-2">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<i class="far fa-hourglass"></i>
+													</div>
+												</div>
+												<input type="time" class="form-control" id="horas" name="horas" value="" required="required">
+											</div>
+											</div>
+											<span id="sphoras" style="color: red"></span>
+											<div class="form-group">
+												<label>Observaciones</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="observaciones" name="observaciones" value="" class="form-control">
+												</div>
+												</div>
+												<div>
+													<span id="spobservaciones" style="color: red"></span>
+												</div>	
+													<input type="hidden" id="idAlumno" name="idAlumno" value="" class="form-control">
+													<input type="hidden" id="fecha" name="fecha" value="" class="form-control">
+																
+								<button type="submit" class="btn btn-success">Enviar</button>
+							
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
   	<%
   	}
   %>
@@ -186,9 +270,6 @@
 		  
 
 </table>
-<button type="button" class="btn btn-success" style="margin-top: 1em; width: 100%;"></button>
-<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="margin-top: 1em; width: 100%;"><b>Añadir nuevo día</b></button>
-
 <%
 			} else {
 				response.sendRedirect("../index.jsp?mensaje=Solo accesible al profesorado");
