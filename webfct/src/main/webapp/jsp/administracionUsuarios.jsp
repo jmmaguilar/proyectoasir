@@ -192,8 +192,38 @@
 							<div class="modal-body">
 
 								<form role="form" method="POST" action="../BorrarUsuario" style="margin:0;" onsubmit="return validarAnadirSerie()">
-													<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">					
-								<button type="submit" class="btn btn-success">Sí</button>
+									<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">					
+									<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">					
+								<button type="button" data-toggle="modal" data-target="#modalBorrarPass<%=u.getLogin() %>" class="btn btn-success">Sí</button>
+					<!-- MODAL -->
+					<div class="modal fade" id="modalBorrarPass<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Introduzca su contraseña</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+							<label>Contraseña</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-key"></i>
+												</div>
+											</div>
+											<input type="password" class="form-control" id="password" name="password" required="required" autofocus>
+										</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">Enviar</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+				</div>
 								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
 							</form>
 						</div>
@@ -205,7 +235,7 @@
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Modificar Día </h5>
+								<h5 class="modal-title" id="exampleModalLongTitle">Modificar usuario</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -213,49 +243,117 @@
 							</div>
 							<div class="modal-body">
 
-								<form role="form" method="POST" action="../EditarFicha" style="margin:0;" onsubmit="return validarAnadirSerie()">
+								<form role="form" method="POST" action="" style="margin:0;" onsubmit="return validarAnadirSerie()">
 									<div class="form-group">
-										<label>Descripción</label>
+										<label>Login</label>
 										<div class="input-group mb-2 mr-sm-2">
 											<div class="input-group-prepend">
 												<div class="input-group-text">
 													<i class="fas fa-align-left"></i>
 												</div>
 											</div>
-											<input type="text" class="form-control" id="descripcion" name="descripcion" value="" required="required">
+											<input type="text" class="form-control" id="login" name="login" value="<%=u.getLogin() %>" required="required">
 										</div>
 										</div>
-										<span id="spdescripcion" style="color: red"></span>
+										<span id="splogin" style="color: red"></span>
 										<div class="form-group">
-											<label >Horas</label>
+											<label >Nombre</label>
 											<div class="input-group mb-2 mr-sm-2">
 												<div class="input-group-prepend">
 													<div class="input-group-text">
 														<i class="far fa-hourglass"></i>
 													</div>
 												</div>
-												<input type="time" class="form-control" id="horas" name="horas" value="" required="required">
+												<input type="time" class="form-control" id="nombre" name="nombre" value="<%=u.getNombre() %>" required="required">
 											</div>
 											</div>
-											<span id="sphoras" style="color: red"></span>
+											<span id="spnombre" style="color: red"></span>
 											<div class="form-group">
-												<label>Observaciones</label>
+												<label>Apellidos</label>
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
 															<i class="fas fa-align-left"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" value="" class="form-control">
+													<input type="text" id="observaciones" name="observaciones" value="<%=u.getApellidos() %>" class="form-control">
 												</div>
 												</div>
-												<div>
-													<span id="spobservaciones" style="color: red"></span>
-												</div>	
-													<input type="hidden" id="idAlumno" name="idAlumno" value="" class="form-control">
-													<input type="hidden" id="fecha" name="fecha" value="" class="form-control">
+												<div class="form-group">
+												<label>Contraseña</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="password" id="passwordNueva" name="passwordNueva" class="form-control">
+												</div>
+												</div>
+												<div class="form-group">
+												<label>Tipo</label>
+												<div class="input-group mb-3">
+												<select class="custom-select" name="tipo" required>
+										  			<%
+										  				if (u.getTipo() == 0){
+										  					%>
+										  					<option selected value="0">Directivo</option>
+										   		    		<option value="1">Profesor</option>
+										   		    		<option value="2">Alumno</option>
+										   		    		<%
+										  				} else if (u.getTipo() == 1){
+										  					%>
+										  					<option value="0">Directivo</option>
+										   		    		<option selected value="1">Profesor</option>
+										   		    		<option value="2">Alumno</option>
+										   		    		<%
+										  				} else if (u.getTipo() == 2){
+										  					%>
+										  					<option value="0">Directivo</option>
+										   		    		<option value="1">Profesor</option>
+										   		    		<option selected value="2">Alumno</option>
+										   		    		<%
+										  				}
+										  			%>
+												    		
+										     </select>
+										    </div>
+										    </div>
+										 
+											
+													<input type="hidden" id="idUsuario" name="idUsuario" value="<%=usuario.getIdUsuario() %>" class="form-control">
+													<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">
 																
+								<button type="button" data-toggle="modal" data-target="#modalEditarPass<%=u.getLogin() %>" class="btn btn-success">Sí</button>
+					<!-- MODAL -->
+					<div class="modal fade" id="modalEditarPass<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Introduzca su contraseña</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+							<label>Contraseña</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-key"></i>
+												</div>
+											</div>
+											<input type="password" class="form-control" id="password" name="password" required="required" autofocus>
+										</div>
+							</div>
+							<div class="modal-footer">
 								<button type="submit" class="btn btn-success">Enviar</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
+				</div>
+				</div>
 							
 								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
 							</form>
