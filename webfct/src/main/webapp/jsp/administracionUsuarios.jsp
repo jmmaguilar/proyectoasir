@@ -264,7 +264,7 @@
 														<i class="fas fa-file-signature"></i>
 													</div>
 												</div>
-												<input type="time" class="form-control" id="nombre" name="nombre" value="<%=u.getNombre() %>" required="required">
+												<input type="text" class="form-control" id="nombre" name="nombre" value="<%=u.getNombre() %>" required="required">
 											</div>
 											</div>
 											<span id="spnombre" style="color: red"></span>
