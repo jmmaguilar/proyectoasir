@@ -98,6 +98,12 @@
   	<description></description>
   	<servlet-class>es.cj.controller.BorrarUsuario</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ActualizarUsuarios</servlet-name>
+  	<display-name>ActualizarUsuarios</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.ActualizarUsuarios</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -149,6 +155,10 @@
   <servlet-mapping>
   	<servlet-name>BorrarUsuario</servlet-name>
   	<url-pattern>/BorrarUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ActualizarUsuarios</servlet-name>
+  	<url-pattern>/ActualizarUsuarios</url-pattern>
   </servlet-mapping>
 
   

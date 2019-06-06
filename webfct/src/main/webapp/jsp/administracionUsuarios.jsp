@@ -160,16 +160,16 @@
   		<%
   			if (u.getTipo() == 0) {
   				%>
-  					<a style="color: #efb810;">Directivo</a>
+  					<b style="color: #efb810;">Directivo</b>
   				<%
   				
   			} else if (u.getTipo() == 1) {
   				%>
-					<a style="color:#4c2882;">Profesor</a>
+					<b style="color:#4c2882;">Profesor</b>
 				<%
   			} else {
   				%>
-					<a style="color:#56A0D3;">Alumno</a>
+					<b style="color:#56A0D3;">Alumno</b>
 				<%
   			}
   		%>
@@ -243,7 +243,7 @@
 							</div>
 							<div class="modal-body">
 
-								<form role="form" method="POST" action="" style="margin:0;" onsubmit="return validarAnadirSerie()">
+								<form role="form" method="POST" action="../ActualizarUsuarios" style="margin:0;" onsubmit="return validarAnadirSerie()">
 									<div class="form-group">
 										<label>Login</label>
 										<div class="input-group mb-2 mr-sm-2">
@@ -276,7 +276,18 @@
 															<i class="fas fa-align-left"></i>
 														</div>
 													</div>
-													<input type="text" id="observaciones" name="observaciones" value="<%=u.getApellidos() %>" class="form-control">
+													<input type="text" id="apellidos" name="apellidos" value="<%=u.getApellidos() %>" class="form-control">
+												</div>
+												</div>
+												<div class="form-group">
+												<label>Email</label>
+												<div class="input-group mb-2 mr-sm-2">
+													<div class="input-group-prepend">
+														<div class="input-group-text">
+															<i class="fas fa-align-left"></i>
+														</div>
+													</div>
+													<input type="text" id="email" name="email" value="<%=u.getEmail() %>" class="form-control">
 												</div>
 												</div>
 												<div class="form-group">
@@ -319,10 +330,10 @@
 										     </select>
 										    </div>
 										    </div>
-										 
+										 			<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">
 											
-													<input type="hidden" id="idUsuario" name="idUsuario" value="<%=usuario.getIdUsuario() %>" class="form-control">
-													<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">
+													<input type="hidden" id="idAdmin" name="idAdmin" value="<%=usuario.getIdUsuario() %>" class="form-control">
+													<input type="hidden" id="loginAdmin" name="loginAdmin" value="<%=usuario.getLogin() %>" class="form-control">
 																
 								<button type="button" data-toggle="modal" data-target="#modalEditarPass<%=u.getLogin() %>" class="btn btn-success">Sí</button>
 					<!-- MODAL -->
