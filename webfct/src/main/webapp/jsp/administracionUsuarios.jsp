@@ -261,7 +261,7 @@
 											<div class="input-group mb-2 mr-sm-2">
 												<div class="input-group-prepend">
 													<div class="input-group-text">
-														<i class="far fa-hourglass"></i>
+														<i class="fas fa-file-signature"></i>
 													</div>
 												</div>
 												<input type="time" class="form-control" id="nombre" name="nombre" value="<%=u.getNombre() %>" required="required">
@@ -284,7 +284,7 @@
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
-															<i class="fas fa-align-left"></i>
+															<i class="fas fa-at"></i>
 														</div>
 													</div>
 													<input type="text" id="email" name="email" value="<%=u.getEmail() %>" class="form-control">
@@ -295,7 +295,7 @@
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
-															<i class="fas fa-align-left"></i>
+															<i class="fas fa-key"></i>
 														</div>
 													</div>
 													<input type="password" id="passwordNueva" name="passwordNueva" class="form-control">
