@@ -54,8 +54,9 @@ public class RegistrarUsuario extends HttpServlet {
 				
 		// Crear un objeto de tipo Conexion con los datos anteriores
 		Conexion con = new Conexion(usu, pass, driver, bd);
+		Usuario usuario = new Usuario(login, nombre, apellidos, password, email, 2);
 		
-		Usuario usuario = new Usuario(login, password, nombre, apellidos, email, 2);
+		System.out.println(usuario);
 		
 		UsuarioDAO uDAO = new UsuarioDAOImpl();
 		
