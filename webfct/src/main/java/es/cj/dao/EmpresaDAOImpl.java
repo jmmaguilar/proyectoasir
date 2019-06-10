@@ -57,4 +57,74 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 		return empresas;
 	}
 
+	public int borrarXId(Conexion c, int idEmpresa) {
+		int filas = 0;
+		String sql = "delete from empresa where idEmpresa = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, idEmpresa);
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public int insertar(Conexion c, Empresa empresa) {
+		int filas = 0;
+		
+		String sql = "insert into empresa values (null, ?, ?, ?)";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setString(1, empresa.getNombre());
+			sentencia.setString(2, empresa.getDireccion());
+			sentencia.setInt(3, empresa.getCp());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public boolean compEmpresa(Conexion c, Empresa empresa) {
+		boolean comp = false;
+		String sql = "select * from empresa where nombre = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setString(1, empresa.getNombre());
+			ResultSet resultado = sentencia.executeQuery();
+			if (resultado.next()) {
+				comp = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return comp;
+	}
+
+	public int actualizarEmpresa(Conexion c, Empresa empresa) {
+		int filas = 0;
+		
+		String sql = "update empresa set nombre = ?, direccion = ?, cp = ? where idEmpresa = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setString(1, empresa.getNombre());
+			sentencia.setString(2, empresa.getDireccion());
+			sentencia.setInt(3, empresa.getCp());
+			sentencia.setInt(4, empresa.getIdEmpresa());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
 }

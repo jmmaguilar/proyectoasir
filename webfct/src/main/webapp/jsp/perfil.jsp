@@ -55,8 +55,12 @@
     	  <li>
     	  <a class="nav-link" href="principalDirectivo.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
     	  </li>
-    	  <li class="nav-item">
-        <a class="nav-link" href="administracionUsuarios.jsp"><strong>Administración de Usuarios</strong></a>
+    	        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Administración</strong></a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="administracionUsuarios.jsp">Administración de Usuarios</a>
+          <a class="dropdown-item" href="administracionEmpresas.jsp">Administración de Empresas</a>
+        </div>
       </li>
       	  <%
       } else if (usuario.getTipo() == 1) {
@@ -64,11 +68,17 @@
     	  <li>
     	  <a class="nav-link" href="principalTutor.jsp"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
     	  </li>
+       <li class="nav-item">
+        <a class="nav-link" href="historial.jsp"><strong>Historial</strong></a>
+      </li>
     	  <li class="nav-item">
        		<a class="nav-link" href="informacionTutor.jsp"><strong>Alumnos</strong></a>
-     	 </li>
-     	 <li class="nav-item">
-        <a class="nav-link" href="administracionUsuarios.jsp"><strong>Administración de Usuarios</strong></a>
+     	       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Administración</strong></a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="administracionUsuarios.jsp">Administración de Usuarios</a>
+          <a class="dropdown-item" href="administracionEmpresas.jsp">Administración de Empresas</a>
+        </div>
       </li>
       	  <%
       } else {

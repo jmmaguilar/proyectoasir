@@ -1,3 +1,6 @@
+<%@page import="es.cj.dao.EmpresaDAO"%>
+<%@page import="es.cj.dao.EmpresaDAOImpl"%>
+<%@page import="es.cj.bean.Empresa"%>
 <%@page import="es.cj.dao.UsuarioDAOImpl"%>
 <%@page import="es.cj.dao.UsuarioDAO"%>
 <%@page import="java.util.List"%>
@@ -70,10 +73,9 @@
 			if (usuario.getTipo() == 0 || usuario.getTipo() == 1) {
 				Conexion con = new Conexion(usu, pass, driver, bd);
 				
-				UsuarioDAO uDAO = new UsuarioDAOImpl();
-				List<Usuario> usuarios = uDAO.listarTodo(con);
-			
-			
+				EmpresaDAO eDAO = new EmpresaDAOImpl();
+				List<Empresa> empresas = eDAO.listarTodo(con);
+	
 
 	%>
 
@@ -117,8 +119,8 @@
             <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Administración</strong></a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item active" href="#">Administración de Usuarios</a>
-          <a class="dropdown-item" href="administracionEmpresas.jsp">Administración de Empresas</a>
+          <a class="dropdown-item" href="administracionUsuarios.jsp">Administración de Usuarios</a>
+          <a class="dropdown-item active" href="#">Administración de Empresas</a>
         </div>
       </li>
       <li class="nav-item">
@@ -153,45 +155,28 @@
 			
 <table id="customers">
   <tr>
-    <th>Usuario</th>
-    <th>Nombre y Apellidos</th>
-    <th>Tipo</th>
+    <th>Nombre</th>
+    <th>Dirección</th>
+    <th>Código Postal</th>
     <th>Editar / Borrar</th>
   </tr>
   <%
-  	for (Usuario u:usuarios) {
+  	for (Empresa e:empresas) {
   	%>
   	  <tr>
-  		<td><%=u.getLogin() %></td>
-  		<td><%=u.getNombre() %> <%=u.getApellidos() %></td>
+  		<td><%=e.getNombre() %></td>
+  		<td><%=e.getDireccion() %></td>
+  		<td><%=e.getCp() %></td>
   		<td>
-  		<%
-  			if (u.getTipo() == 0) {
-  				%>
-  					<b style="color: #efb810;">Directivo</b>
-  				<%
-  				
-  			} else if (u.getTipo() == 1) {
-  				%>
-					<b style="color:#4c2882;">Profesor</b>
-				<%
-  			} else {
-  				%>
-					<b style="color:#56A0D3;">Alumno</b>
-				<%
-  			}
-  		%>
-  		</td>
-  		<td>
-  			<button type="button" data-toggle="modal" data-target="#modalEditar<%=u.getLogin() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
-  			<button type="button" data-toggle="modal" data-target="#modalBorrar<%=u.getLogin() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
+  			<button type="button" data-toggle="modal" data-target="#modalEditar<%=e.getIdEmpresa() %>" class="btn btn-primary" style="margin:0.25em 0em 0.25em 0em;"> <i class="far fa-edit"> </i></button>
+  			<button type="button" data-toggle="modal" data-target="#modalBorrar<%=e.getIdEmpresa() %>" class="btn btn-danger" style="margin:0.25em 0em 0.25em 0em;"> <i class="fas fa-trash"> </i></button>
   		</td>
   	  </tr>
-  	  		  <div class="modal fade" id="modalBorrar<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	  		  <div class="modal fade" id="modalBorrar<%=e.getIdEmpresa() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que desea el usuario <b><%=u.getLogin() %></b>?</h5>
+								<h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que desea la empresa <b><%=e.getNombre() %></b>?</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -199,12 +184,12 @@
 							</div>
 							<div class="modal-body">
 
-								<form role="form" method="POST" action="../BorrarUsuario" style="margin:0;" onsubmit="return validarAnadirSerie()">
-									<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">					
+								<form role="form" method="POST" action="../BorrarEmpresa" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<input type="hidden" id="idEmpresa" name="idEmpresa" value="<%=e.getIdEmpresa() %>" class="form-control">					
 									<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">					
-								<button type="button" data-toggle="modal" data-target="#modalBorrarPass<%=u.getLogin() %>" class="btn btn-success">Sí</button>
+								<button type="button" data-toggle="modal" data-target="#modalBorrarPass<%=e.getIdEmpresa() %>" class="btn btn-success">Sí</button>
 					<!-- MODAL -->
-					<div class="modal fade" id="modalBorrarPass<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal fade" id="modalBorrarPass<%=e.getIdEmpresa() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -239,7 +224,7 @@
 				</div>
 				</div>
 		  
-<div class="modal fade" id="modalEditar<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalEditar<%=e.getIdEmpresa() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -251,101 +236,53 @@
 							</div>
 							<div class="modal-body">
 
-								<form role="form" method="POST" action="../ActualizarUsuarios" style="margin:0;" onsubmit="return validarAnadirSerie()">
+								<form role="form" method="POST" action="../ActualizarEmpresa" style="margin:0;" onsubmit="return validarAnadirSerie()">
 									<div class="form-group">
-										<label>Login</label>
+										<label>Nombre</label>
 										<div class="input-group mb-2 mr-sm-2">
 											<div class="input-group-prepend">
 												<div class="input-group-text">
 													<i class="fas fa-align-left"></i>
 												</div>
 											</div>
-											<input type="text" class="form-control" id="login" name="login" value="<%=u.getLogin() %>" required="required">
+											<input type="text" class="form-control" id="nombre" name="nombre" value="<%=e.getNombre() %>" required="required">
 										</div>
 										</div>
 										<span id="splogin" style="color: red"></span>
 										<div class="form-group">
-											<label >Nombre</label>
+											<label >Direccion</label>
 											<div class="input-group mb-2 mr-sm-2">
 												<div class="input-group-prepend">
 													<div class="input-group-text">
 														<i class="fas fa-file-signature"></i>
 													</div>
 												</div>
-												<input type="text" class="form-control" id="nombre" name="nombre" value="<%=u.getNombre() %>" required="required">
+												<input type="text" class="form-control" id="direccion" name="direccion" value="<%=e.getDireccion() %>" required="required">
 											</div>
 											</div>
 											<span id="spnombre" style="color: red"></span>
 											<div class="form-group">
-												<label>Apellidos</label>
+												<label>Código Postal</label>
 												<div class="input-group mb-2 mr-sm-2">
 													<div class="input-group-prepend">
 														<div class="input-group-text">
 															<i class="fas fa-align-left"></i>
 														</div>
 													</div>
-													<input type="text" id="apellidos" name="apellidos" value="<%=u.getApellidos() %>" class="form-control">
+													<input type="text" id="cp" name="cp" value="<%=e.getCp() %>" class="form-control">
 												</div>
 												</div>
 												<div class="form-group">
-												<label>Email</label>
-												<div class="input-group mb-2 mr-sm-2">
-													<div class="input-group-prepend">
-														<div class="input-group-text">
-															<i class="fas fa-at"></i>
-														</div>
-													</div>
-													<input type="text" id="email" name="email" value="<%=u.getEmail() %>" class="form-control">
-												</div>
-												</div>
-												<div class="form-group">
-												<label>Contraseña</label>
-												<div class="input-group mb-2 mr-sm-2">
-													<div class="input-group-prepend">
-														<div class="input-group-text">
-															<i class="fas fa-key"></i>
-														</div>
-													</div>
-													<input type="password" id="passwordNueva" name="passwordNueva" class="form-control">
-												</div>
-												</div>
-												<div class="form-group">
-												<label>Tipo</label>
-												<div class="input-group mb-3">
-												<select class="custom-select" name="tipo" required>
-										  			<%
-										  				if (u.getTipo() == 0){
-										  					%>
-										  					<option selected value="0">Directivo</option>
-										   		    		<option value="1">Profesor</option>
-										   		    		<option value="2">Alumno</option>
-										   		    		<%
-										  				} else if (u.getTipo() == 1){
-										  					%>
-										  					<option value="0">Directivo</option>
-										   		    		<option selected value="1">Profesor</option>
-										   		    		<option value="2">Alumno</option>
-										   		    		<%
-										  				} else if (u.getTipo() == 2){
-										  					%>
-										  					<option value="0">Directivo</option>
-										   		    		<option value="1">Profesor</option>
-										   		    		<option selected value="2">Alumno</option>
-										   		    		<%
-										  				}
-										  			%>
-												    		
-										     </select>
 										    </div>
 										    </div>
-										 			<input type="hidden" id="idUsuario" name="idUsuario" value="<%=u.getIdUsuario() %>" class="form-control">
-											
-													<input type="hidden" id="idAdmin" name="idAdmin" value="<%=usuario.getIdUsuario() %>" class="form-control">
-													<input type="hidden" id="loginAdmin" name="loginAdmin" value="<%=usuario.getLogin() %>" class="form-control">
-																
-								<button type="button" data-toggle="modal" data-target="#modalEditarPass<%=u.getLogin() %>" class="btn btn-success">Sí</button>
+													<input type="hidden" id="idEmpresa" name="idEmpresa" value="<%=e.getIdEmpresa() %>" class="form-control">
+										 			<input type="hidden" id="login" name="login" value="<%=usuario.getLogin() %>" class="form-control">
+								<div class="modal-footer">								
+								<button type="button" data-toggle="modal" data-target="#modalEditarPass<%=e.getIdEmpresa() %>" class="btn btn-success">Sí</button>
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+								</div>
 					<!-- MODAL -->
-					<div class="modal fade" id="modalEditarPass<%=u.getLogin() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal fade" id="modalEditarPass<%=e.getIdEmpresa() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -373,12 +310,9 @@
 					</div>
 				</div>
 				</div>
-							
-								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
 							</form>
 						</div>
 					</div>
-				</div>
 				</div>
   	<%
   	}
@@ -387,6 +321,65 @@
 		  
 
 </table>
+<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="margin-top: 1em; width: 100%;"><b>Añadir nueva empresa</b></button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAnadir" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Añadir Nuevo Día</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<form role="form" method="POST" action="../AnadirEmpresa" style="margin:0;" onsubmit="return validarAnadirSerie()">
+									<label>Nombre</label>
+									<div class="input-group mb-2 mr-sm-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="far fa-calendar-alt"></i>
+											</div>
+										</div>
+										<input type="text" class="form-control" id="nombre" name="nombre" required="required">
+									</div>
+									<span id="spfecha" style="color: red"></span>
+									<div class="form-group">
+										<label>Direccion</label>
+										<div class="input-group mb-2 mr-sm-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fas fa-align-left"></i>
+												</div>
+											</div>
+											<input type="text" class="form-control" id="direccion" name="direccion" required="required">
+										</div>
+										</div>
+										<span id="spdescripcion" style="color: red"></span>
+										<div class="form-group">
+											<label >Código Postal</label>
+											<div class="input-group mb-2 mr-sm-2">
+												<div class="input-group-prepend">
+													<div class="input-group-text">
+														<i class="far fa-hourglass"></i>
+													</div>
+												</div>
+												<input type="number" min="00000" max="99999"class="form-control" id="cp" name="cp" required="required">
+											</div>
+											</div>
+																	
+								<button type="submit" class="btn btn-success">Enviar</button>
+							
+								<button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+
 <%
 			} else {
 				response.sendRedirect("../index.jsp?mensaje=Solo accesible al profesorado");

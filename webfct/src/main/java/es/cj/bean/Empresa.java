@@ -19,6 +19,12 @@ public class Empresa implements Serializable {
 		this.direccion = direccion;
 		this.cp = cp;
 	}
+	public Empresa(String nombre, String direccion, int cp) {
+		super();
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.cp = cp;
+	}
 
 	public int getIdEmpresa() {
 		return idEmpresa;

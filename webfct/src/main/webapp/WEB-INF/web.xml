@@ -110,6 +110,24 @@
   	<description></description>
   	<servlet-class>es.cj.controller.CambiarRealizada</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BorrarEmpresa</servlet-name>
+  	<display-name>BorrarEmpresa</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.BorrarEmpresa</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AnadirEmpresa</servlet-name>
+  	<display-name>AnadirEmpresa</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.AnadirEmpresa</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ActualizarEmpresa</servlet-name>
+  	<display-name>ActualizarEmpresa</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.ActualizarEmpresa</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -169,6 +187,18 @@
   <servlet-mapping>
   	<servlet-name>CambiarRealizada</servlet-name>
   	<url-pattern>/CambiarRealizada</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BorrarEmpresa</servlet-name>
+  	<url-pattern>/BorrarEmpresa</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AnadirEmpresa</servlet-name>
+  	<url-pattern>/AnadirEmpresa</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ActualizarEmpresa</servlet-name>
+  	<url-pattern>/ActualizarEmpresa</url-pattern>
   </servlet-mapping>
 
   
