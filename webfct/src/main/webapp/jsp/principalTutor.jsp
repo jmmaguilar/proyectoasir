@@ -238,7 +238,10 @@
 															<i class="fas fa-align-left"></i>
 														</div>
 													</div>
-													<input type="text" id="tipo" name="tipo" class="form-control" required="required">
+													<select class="custom-select"  name="tipo" required>
+										  				<option value="Seguimiento" selected>Seguimiento</option>
+										  				<option value="Entrega de documentación">Entrega de documentación</option>
+										  			</select>
 												</div>
 												</div>
 												<div>
