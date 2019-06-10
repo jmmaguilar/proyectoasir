@@ -70,7 +70,7 @@ public class AnadirVisita extends HttpServlet {
 		String bd = sc.getInitParameter("database");
 		Conexion con = new Conexion(usu, pass, driver, bd);
 		
-		Visitas visita = new Visitas(idProfesor, idEmpresa, idAlumno, fecha, horaini, horafin, aceptado, tipo);
+		Visitas visita = new Visitas(idProfesor, idEmpresa, idAlumno, fecha, horaini, horafin, aceptado, tipo, 0);
 		
 		TutoresLaborales alumXTutXEmp = tDAO.listarXAlumno(con, idAlumno);
 		if (alumXTutXEmp.getIdEmpresa() == idEmpresa && alumXTutXEmp.getIdProfesor() == idProfesor) {

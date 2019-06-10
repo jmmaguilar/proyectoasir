@@ -1,3 +1,7 @@
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="es.cj.dao.TutoresLaboralesDAOImpl"%>
 <%@page import="es.cj.dao.TutoresLaboralesDAO"%>
 <%@page import="es.cj.bean.TutoresLaborales"%>
@@ -82,6 +86,9 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="historial.jsp"><strong>Historial</strong></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="informacionTutor.jsp"><strong>Alumnos</strong></a>
@@ -256,6 +263,8 @@
 		Usuario profesor = uDAO.listarXId(con, v.getIdProfesor());
 		Usuario alumno = uDAO.listarXId(con, v.getIdAlumno());
 		Empresa empresa = eDAO.listarXId(con, v.getIdEmpresa());
+		if(v.getRealizada() == 0){
+			
 		%>
 		<div class="col-sm-4" style="margin-top:1em;">
 		<div class="card text-white bg-dark mb-3">
@@ -279,13 +288,64 @@
 		    		<%
 				} else {
 					%>
-		    		<p class="card-text" style="color: green"><i class="fas fa-check"></i> <b>Aceptado</b></p>
+		    		<p class="card-text" style="color: green"><i class="fas fa-check"></i> <b>Aceptado</b>
+		    		
+		    		</p>
 		    		<%
 				}
+		    boolean comp = false;
+		    /* Date f = new Date();
+		    int AnyoHoy = f.getYear();
+		    int MesHoy = f.getMonth();
+		    int DiaHoy = f.getDay(); */
+		    
+		    Calendar fecha = new GregorianCalendar();
+		    int AnyoHoy = fecha.get(Calendar.YEAR);
+		    int MesHoy = fecha.get(Calendar.MONTH);
+		    int DiaHoy = fecha.get(Calendar.DAY_OF_MONTH);
+		    
+		    int AnyoFecha = Integer.parseInt(v.getFecha().substring(0, 4));
+		    int MesFecha = Integer.parseInt(v.getFecha().substring(5, 7));
+		    int DiaFecha = Integer.parseInt(v.getFecha().substring(8, 10));
+		    		
+		    if (AnyoFecha < AnyoHoy){
+		        
+		    }
+		    else{
+		        if (AnyoFecha == AnyoHoy && MesFecha < MesHoy){
+		            comp = true;			
+		        }
+		        else{
+		            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy){
+		                comp = true;
+		            }
+		            else{
+		                if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy){
+		                     
+		                }
+		                else{
+		                    
+		                }
+		            }
+		        }
+		    }
+		    
+		    if(v.getAceptado() == 2 && comp){
+		    	%>
+			    
+			    
+			    <div class="btn-group" role="group" style="width:100%;">
+			    <a class="btn btn-success" onclick="location.href='../CambiarRealizada?idAlumno=<%=v.getIdAlumno()%>&idEmpresa=<%=v.getIdEmpresa()%>&fecha=<%=v.getFecha()%>&idProfesor=<%=v.getIdProfesor()%>'" style="width: 50%;"><i class="fas fa-check"></i> Realizada</a>
+			    <a class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" style="width: 50%;"><i class="fas fa-trash"></i> Borrar Visita</a>
+			    </div>
+			    <%	
+		    } else {
+		    	 %> 
+				    <a class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
+				 <%
+		    }
 		    %>
-		    
-		    <a class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" style="width: 100%;"><i class="fas fa-trash"></i> Borrar Visita</a>
-		    
+		   
 		    		  <!-- Modal -->
 		  <div class="modal fade" id="modalBorrar<%=v.getFecha() %><%=v.getIdAlumno() %><%=v.getIdEmpresa() %><%=v.getIdProfesor() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -316,7 +376,9 @@
 		</div>
 		</div>
 		<%
-
+		} else {
+			
+		}
 	}
 %>
 </div>

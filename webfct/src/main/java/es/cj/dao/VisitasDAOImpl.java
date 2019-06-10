@@ -29,7 +29,8 @@ public class VisitasDAOImpl implements VisitasDAO {
 											   resultado.getString("hora_ini"), 
 											   resultado.getString("hora_fin"), 
 											   resultado.getInt("aceptado"), 
-											   resultado.getString("tipo"));
+											   resultado.getString("tipo"),
+											   resultado.getInt("realizada"));
 				visitas.add(auxiliar);
 			}
 			
@@ -63,7 +64,7 @@ public class VisitasDAOImpl implements VisitasDAO {
 	public int insertar(Conexion c, Visitas visita) {
 		int filas = 0;
 		
-		String sql = "insert into visitas values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into visitas values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
 			sentencia.setInt(1, visita.getIdProfesor());
@@ -74,6 +75,7 @@ public class VisitasDAOImpl implements VisitasDAO {
 			sentencia.setString(6, visita.getHora_fin());
 			sentencia.setInt(7, visita.getAceptado());
 			sentencia.setString(8, visita.getTipo());
+			sentencia.setInt(9, visita.getRealizada());
 			filas = sentencia.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,7 +123,8 @@ public class VisitasDAOImpl implements VisitasDAO {
 											   resultado.getString("hora_ini"), 
 											   resultado.getString("hora_fin"), 
 											   resultado.getInt("aceptado"), 
-											   resultado.getString("tipo"));
+											   resultado.getString("tipo"),
+											   resultado.getInt("realizada"));
 				visitas.add(auxiliar);
 			}
 			
@@ -144,6 +147,25 @@ public class VisitasDAOImpl implements VisitasDAO {
 			sentencia.setInt(3, idEmpresa);
 			sentencia.setInt(4, idProfesor);
 			sentencia.setString(5, fecha);
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}	
+	public int cambiarRealizada(Conexion c, int idAlumno, int idEmpresa, int idProfesor, String fecha) {
+		int filas = 0;
+		
+		String sql = "update visitas set realizada = 1 where idAlumno = ? and idEmpresa = ? and idProfesor = ? and fecha = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, idAlumno);
+			sentencia.setInt(2, idEmpresa);
+			sentencia.setInt(3, idProfesor);
+			sentencia.setString(4, fecha);
 			filas = sentencia.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

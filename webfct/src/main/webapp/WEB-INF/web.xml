@@ -104,6 +104,12 @@
   	<description></description>
   	<servlet-class>es.cj.controller.ActualizarUsuarios</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CambiarRealizada</servlet-name>
+  	<display-name>CambiarRealizada</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.CambiarRealizada</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -159,6 +165,10 @@
   <servlet-mapping>
   	<servlet-name>ActualizarUsuarios</servlet-name>
   	<url-pattern>/ActualizarUsuarios</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CambiarRealizada</servlet-name>
+  	<url-pattern>/CambiarRealizada</url-pattern>
   </servlet-mapping>
 
   

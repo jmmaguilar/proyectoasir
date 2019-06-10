@@ -11,13 +11,14 @@ public class Visitas implements Serializable {
 	private String hora_fin;
 	private int aceptado;
 	private String tipo;
+	private int realizada;
 	
 	public Visitas() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Visitas(int idProfesor, int idEmpresa, int idAlumno, String fecha, String hora_ini, String hora_fin,
-			int aceptado, String tipo) {
+			int aceptado, String tipo, int realizada) {
 		super();
 		this.idProfesor = idProfesor;
 		this.idEmpresa = idEmpresa;
@@ -27,6 +28,7 @@ public class Visitas implements Serializable {
 		this.hora_fin = hora_fin;
 		this.aceptado = aceptado;
 		this.tipo = tipo;
+		this.realizada = realizada;
 	}
 
 	public int getIdProfesor() {
@@ -93,12 +95,20 @@ public class Visitas implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public int getRealizada() {
+		return realizada;
+	}
+
+	public void setRealizada(int realizada) {
+		this.realizada = realizada;
+	}
+
 	@Override
 	public String toString() {
 		return "Visitas [idProfesor=" + idProfesor + ", idEmpresa=" + idEmpresa + ", idAlumno=" + idAlumno + ", fecha="
 				+ fecha + ", hora_ini=" + hora_ini + ", hora_fin=" + hora_fin + ", aceptado=" + aceptado + ", tipo="
-				+ tipo + "]";
+				+ tipo + ", realizada=" + realizada + "]";
 	}
+
 	
-		
 }
