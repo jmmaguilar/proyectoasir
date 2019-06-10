@@ -128,6 +128,24 @@
   	<description></description>
   	<servlet-class>es.cj.controller.ActualizarEmpresa</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BorrarTutores</servlet-name>
+  	<display-name>BorrarTutores</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.BorrarTutores</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ActualizarAsignaciones</servlet-name>
+  	<display-name>ActualizarAsignaciones</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.ActualizarAsignaciones</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AnadirAsignacion</servlet-name>
+  	<display-name>AnadirAsignacion</display-name>
+  	<description></description>
+  	<servlet-class>es.cj.controller.AnadirAsignacion</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ValidarUsuario</servlet-name>
   	<url-pattern>/ValidarUsuario</url-pattern>
@@ -199,6 +217,18 @@
   <servlet-mapping>
   	<servlet-name>ActualizarEmpresa</servlet-name>
   	<url-pattern>/ActualizarEmpresa</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BorrarTutores</servlet-name>
+  	<url-pattern>/BorrarTutores</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ActualizarAsignaciones</servlet-name>
+  	<url-pattern>/ActualizarAsignaciones</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AnadirAsignacion</servlet-name>
+  	<url-pattern>/AnadirAsignacion</url-pattern>
   </servlet-mapping>
 
   

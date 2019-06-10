@@ -99,4 +99,79 @@ public class TutoresLaboralesDAOImpl implements TutoresLaboralesDAO {
 		return usuario;
 	}
 
+	public int insertar(Conexion c, TutoresLaborales t) {
+		int filas = 0;
+		
+		String sql = "insert into tutores_laborales values (?, ?, ?)";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, t.getIdProfesor());
+			sentencia.setInt(2, t.getIdAlumno());
+			sentencia.setInt(3, t.getIdEmpresa());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public int borrar(Conexion c, TutoresLaborales t) {
+		int filas = 0;
+		
+		String sql = "delete from tutores_laborales where idProfesor = ? and idAlumno = ? and idEmpresa = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, t.getIdProfesor());
+			sentencia.setInt(2, t.getIdAlumno());
+			sentencia.setInt(3, t.getIdEmpresa());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public int actualizar(Conexion c, TutoresLaborales t) {
+		int filas = 0;
+		
+		String sql = "update tutores_laborales set idProfesor = ?, idEmpresa = ? where idAlumno = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, t.getIdProfesor());
+			sentencia.setInt(2, t.getIdEmpresa());
+			sentencia.setInt(3, t.getIdAlumno());
+			filas = sentencia.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	public boolean compExiste(Conexion c, TutoresLaborales t) {
+		boolean comp = false;
+		
+		String sql = "select * from tutores_laborales where idProfesor = ? and idAlumno = ? and idEmpresa = ?";
+		try {
+			PreparedStatement sentencia = c.getConector().prepareStatement(sql);
+			sentencia.setInt(1, t.getIdProfesor());
+			sentencia.setInt(2, t.getIdAlumno());
+			sentencia.setInt(3, t.getIdEmpresa());
+			ResultSet resultado = sentencia.executeQuery();
+			if (resultado.next()) {
+				comp = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return comp;
+	}
+
 }

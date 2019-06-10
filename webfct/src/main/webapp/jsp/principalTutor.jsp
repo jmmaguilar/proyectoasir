@@ -87,6 +87,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="#"><strong>Inicio <span class="sr-only">(current)</span></strong></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="asignaciones.jsp"><strong>Asignaciones</strong></a>
+      </li>
        <li class="nav-item">
         <a class="nav-link" href="historial.jsp"><strong>Historial</strong></a>
       </li>
