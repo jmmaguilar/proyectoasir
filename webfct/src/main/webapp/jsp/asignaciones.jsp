@@ -147,7 +147,7 @@
 			<%
 				}
 			%>
-	<a class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Visita</b></a>	
+	<a class="btn btn-dark" data-toggle="modal" data-target="#modalAnadir" style="width: 100%;color: white;"><i class="fas fa-plus"></i> <b>Nueva Asignación</b></a>	
 </div>
 
 <!-- Modal -->

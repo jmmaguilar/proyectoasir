@@ -311,7 +311,7 @@
 		    
 		    Calendar fecha = new GregorianCalendar();
 		    int AnyoHoy = fecha.get(Calendar.YEAR);
-		    int MesHoy = fecha.get(Calendar.MONTH);
+		    int MesHoy = fecha.get(Calendar.MONTH)+1;
 		    int DiaHoy = fecha.get(Calendar.DAY_OF_MONTH);
 		    
 		    int AnyoFecha = Integer.parseInt(v.getFecha().substring(0, 4));
